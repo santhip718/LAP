@@ -1,0 +1,13 @@
+@startuml
+!include https://raw.githubusercontent.com/kirchsth/C4-PlantUML/extended/C4_Container.puml
+AddRelTag("sync", $textColor="black", $lineColor="black", $lineStyle=DashedLine())
+
+title Learning & Assessment Portal - Context Diagram
+
+Person(user, "User", "Admin or Student who accesses the portal for training, assessments, and course management.")
+System(lap, "Learning & Assessment Portal", "Internal LMS for employee training, adaptive assessments, and skill-tier progression. Secured with JWT-based authentication.")
+System_Ext(emailService, "Email Service", "Sends password reset emails to users during the forgot password flow.")
+
+Rel_D(user, lap, "Logs in, manages courses, takes quizzes, and tracks tier progress", $tags="sync")
+Rel_D(lap, emailService, "Sends password reset link via", $tags="sync")
+@enduml

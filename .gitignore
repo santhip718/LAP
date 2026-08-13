@@ -1,0 +1,19 @@
+**/bin
+**/obj
+**/Logs/**
+# Test results
+**/TestResults/
+
+# Coverage reports
+**/CoverageReport/
+**/coverage.cobertura.xml
+*.coverage
+*.coveragexml
+.opencode
+
+# Test results and code coverage
+**/TestResults/**
+**/coverage.cobertura.xml
+CoverageReport
+TestResults
+

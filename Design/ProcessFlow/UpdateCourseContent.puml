@@ -1,0 +1,120 @@
+    @startuml
+    title Update Course Content - /api/v1/course-content/{id} PUT (MANAGE_COURSE_CONTENT)
+
+    start
+
+    :Controller receives UpdateCourseContent request;
+
+    note right
+    ContentId
+    CourseId
+    Title
+    MetaTopic
+    ContentTypeId
+    VideoUrl (optional)
+    PdfFile (optional)
+    SequenceOrder (optional)
+    MetaDurationMinute (optional)
+    MetaTopicOrder (optional)
+    end note
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize MANAGE_COURSE_CONTENT permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send UpdateCourseContentCommand to MediatR;
+
+            :Validate command data;
+
+            if (Validation failed?) then (Yes)
+
+                :Return 400 Bad Request - Validation failed;
+                stop
+
+            endif
+
+            :UpdateCourseContentHandler executes;
+
+            :Execute within database transaction;
+
+            :Call Course Content Service to get content by ID;
+
+            if (Content exists?) then (Yes)
+
+                :Resolve Meta Topic;
+
+                :Call Course Content Service to get meta topic by course and name;
+
+                if (Meta topic exists?) then (No)
+
+                    :Resolve sequence order for new meta topic;
+
+                    :Create new CourseMetaTopic entity;
+
+                    :Call Course Content Service to add meta topic;
+
+                endif
+
+                :Update course content properties;
+
+                note right
+                Update fields:
+                MetaTopicId -> ResolvedMetaTopicId
+                Title -> Title
+                ContentTypeId -> ContentTypeId
+                VideoUrl -> VideoUrl
+                SequenceOrder -> SequenceOrder (if >= 0)
+                UpdatedBy -> CurrentUserId
+                end note
+
+                if (PDF file uploaded?) then (Yes)
+
+                    :Upload PDF to file storage;
+
+                    if (Upload successful?) then (Yes)
+
+                        :Assign new PDF path to content;
+
+                    else (No)
+
+                        :Return 500 Internal Server Error - Failed to upload PDF;
+                        stop
+
+                    endif
+
+                endif
+
+                :Call Course Content Service to update content;
+
+                :Commit transaction;
+
+                :Return 200 OK - Course content updated successfully;
+
+            else (No)
+
+                :Return 404 Not Found - Course content not found;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for MANAGE_COURSE_CONTENT;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml

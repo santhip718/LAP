@@ -1,0 +1,33 @@
+@startuml
+title Export Template - /api/v1/assessment/export-template GET (AllowAnonymous)
+
+start
+
+:Controller receives ExportTemplate request;
+
+note right
+Access: AllowAnonymous
+end note
+
+:Send ExportTemplateQuery to MediatR;
+
+:ExportTemplateHandler executes;
+
+:Locate preloaded template file;
+
+if (File exist?) then (Yes)
+
+    :Read file content;
+
+    :Return 200 OK - Excel template file;
+
+else (No)
+
+    :Return 404 Not Found - Template file not found;
+    stop
+
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,76 @@
+@startuml
+title Delete User - /api/v1/user/{id} DELETE (MANAGE_USER)
+
+start
+
+:Controller receives DeleteUser request;
+note right
+  Id (from route)
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize MANAGE_USER permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send DeleteUserCommand to MediatR;
+
+        :Validate command data (FluentValidation);
+
+        if (Validation failed?) then (Yes)
+            :Return 400 Bad Request - Validation failed;
+            stop
+        endif
+
+        :DeleteUserHandler executes;
+
+        :Call UserService;
+
+        :Call UserRepository;
+        :Verify user exists;
+
+        if (User exists?) then (Yes)
+
+            :Deactivate user and person;
+            note right
+              User.IsActive   <- false
+              Person.IsActive <- false
+            end note
+
+            :Call UserService;
+            :Call UserRepository;
+            :Update user entity;
+
+            if (Database operation successful?) then (Yes)
+                :Return 200 OK - User deleted successfully;
+                note right
+                  Body: Id, Message
+                end note
+
+            else (No)
+                :Return 500 Internal Server Error - Failed to delete user;
+                stop
+            endif
+
+        else (No)
+            :Return 404 Not Found - User not found;
+            stop
+        endif
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permissions for MANAGE_USER;
+        stop
+
+    endif
+
+else (No)
+    :Return 401 Unauthorized - Authentication required;
+    stop
+endif
+
+stop
+@enduml

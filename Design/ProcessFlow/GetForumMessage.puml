@@ -1,0 +1,62 @@
+    @startuml
+    title Get Forum Messages - /api/v1/course/{course_id}/forum-message GET (VIEW_FORUM)
+
+    start
+
+    :Controller receives GetForumMessage request;
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize VIEW_FORUM permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send GetForumMessageQuery to MediatR;
+
+            :Validate command data;
+
+            if (Validation failed?) then (Yes)
+
+                :Return 400 Bad Request - Validation failed;
+                stop
+
+            endif
+
+            :GetForumMessageHandler executes;
+
+            :Call Forum Service to check if course exists;
+
+            if (Course exists?) then (Yes)
+
+                :Call Forum Service to get messages by course ID;
+
+                :Map ForumMessage entities to DTOs;
+
+                :Return 200 OK with list of forum messages;
+
+            else (No)
+
+                :Return 404 Not Found - Course not found;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for VIEW_FORUM;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml

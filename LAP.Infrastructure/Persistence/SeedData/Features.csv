@@ -1,0 +1,76 @@
+Name,Method,Description
+
+MANAGE_COURSE_CONTENT,POST,Add course content item
+MANAGE_COURSE_CONTENT,PUT,Update course content item
+MANAGE_COURSE_CONTENT,DELETE,Delete course content item
+
+MANAGE_COURSE,POST,Create course
+MANAGE_COURSE,PUT,Update course
+MANAGE_COURSE,DELETE,Delete course
+
+VIEW_COURSE_ADMINISTRATION,GET,Get admin course summary metrics
+
+VIEW_FORUM,GET,Get forum messages for a course
+PARTICIPATE_FORUM,POST,Post a forum message for a course
+
+MANAGE_ENROLLMENT,GET,Get all enrollments with filters
+MANAGE_ENROLLMENT,PUT,Update enrollment request
+
+VIEW_PROFILE,GET,Get own profile
+MANAGE_OWN_ACCOUNT,PUT,Reset password
+VIEW_USER,GET,Get all users
+VIEW_USER,GET,Get user by ID
+MANAGE_USER,PUT,Update user
+MANAGE_USER,DELETE,Delete user
+
+
+
+VIEW_ASSESSMENT,GET,Get all assessments
+
+MANAGE_QUESTION_BANK,GET,Export question bank template
+MANAGE_QUESTION_BANK,POST,Import question bank
+MANAGE_QUESTION_BANK,PUT,Update question
+MANAGE_QUESTION_BANK,DELETE,Delete question
+MANAGE_QUESTION_BANK,GET,Get assessment import status
+
+VIEW_ASSESSMENT,GET,Get assessment overview
+
+VIEW_LEADERBOARD,GET,Get course leaderboard
+VIEW_LEADERBOARD,GET,Get overall leaderboard
+
+VIEW_REFERENCE_DATA,GET,Get reference terms
+
+MANAGE_ASSESSMENT,POST,Create assessment
+MANAGE_ASSESSMENT,PUT,Update assessment
+MANAGE_ASSESSMENT,DELETE,Delete assessment
+
+VIEW_ASSESSMENT,GET,Get assessment questions
+
+VIEW_ASSESSMENT_HISTORY,GET,Get assessment history by course
+VIEW_ASSESSMENT_HISTORY,GET,Get assessment history by user
+
+SUBMIT_ASSESSMENT,POST,Submit assessment answers
+VIEW_ASSESSMENT,GET,Get assessment result
+
+VIEW_COURSE_CONTENT,GET,Get course content
+
+UPDATE_COURSE_PROGRESS,PUT,Update content completion status
+
+VIEW_COURSE,GET,Get courses with filters
+VIEW_RECOMMENDATION,GET,Get course recommendations
+VIEW_COURSE,GET,Get course overview
+
+VIEW_COURSE_CONTENT,GET,Get course contents
+
+VIEW_COURSE_PROGRESS,GET,Get course progress
+
+REQUEST_ENROLLMENT,POST,Request enrollment
+
+VIEW_RECOMMENDATION,GET,Get weak topics
+
+MANAGE_REVIEW,PUT,Update review
+MANAGE_REVIEW,DELETE,Delete review
+
+VIEW_REVIEW,GET,Get course reviews
+CREATE_REVIEW,POST,Create review
+VIEW_REVIEW,GET,Get review by user

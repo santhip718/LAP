@@ -1,0 +1,77 @@
+@startuml
+title Get Reference Data - /api/v1/reference-data/{ref-set-name} GET (VIEW_REFERENCE_DATA)
+
+start
+
+:Controller receives GetReferenceData request;
+
+note right
+Input Field:
+- ref-set-name (Route)
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize VIEW_REFERENCE_DATA permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send GetReferenceDataQuery to MediatR;
+
+        :Validate command data;
+
+        if (Validation failed?) then (Yes)
+
+            :Return 400 Bad Request - Validation failed;
+            stop
+
+        endif
+
+        :GetReferenceDataQueryHandler executes;
+
+        :Call Reference Cache Service to get all RefSet and RefTerm;
+
+        :Normalize input reference set name;
+
+        :Search for matching RefSet;
+
+        if (RefSet found?) then (Yes)
+
+            :Filter RefTerm by matching RefSet ID;
+
+            :Map RefTerm entity to RefTermDto;
+
+            note right
+            RefTermDto Mapping:
+            - Id -> Id
+            - Name -> Name
+            end note
+
+            :Return 200 OK - List of reference term;
+
+        else (No)
+
+            :Return 200 OK - Empty list;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permission for VIEW_REFERENCE_DATA;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

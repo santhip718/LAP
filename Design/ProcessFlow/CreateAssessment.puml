@@ -1,0 +1,112 @@
+@startuml
+title Create Assessment - /api/v1/assessment POST (MANAGE_ASSESSMENT)
+
+start
+
+:Controller receives CreateAssessment request;
+
+note right
+Input Field:
+- CourseId
+- Title
+- Description
+- PassingMark
+- DurationMinute
+- QuestionFile
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize MANAGE_ASSESSMENT permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send CreateAssessmentCommand to MediatR;
+
+        :Validate command data;
+
+        if (Validation failed?) then (Yes)
+
+            :Return 400 Bad Request - Validation failed;
+            stop
+
+        endif
+
+        :CreateAssessmentHandler executes;
+
+        :Call Assessment Service to check if course exist;
+
+        if (Course exist?) then (Yes)
+
+            :Validate assessment file;
+
+            if (File valid?) then (Yes)
+
+                :Begin transaction;
+
+                :Map CreateAssessmentDto to Assessment entity;
+
+                note right
+                Assessment Entity Mapping:
+                - CourseId -> CourseId
+                - Title -> Title
+                - Description -> Description
+                - PassingMark -> PassingMark
+                - DurationMinute -> DurationMinute
+                end note
+
+                :Map uploaded question data to Question entity;
+
+                note right
+                Question Entity Mapping:
+                - QuestionText -> QuestionText
+                - OptionA -> OptionA
+                - OptionB -> OptionB
+                - OptionC -> OptionC
+                - OptionD -> OptionD
+                - CorrectAnswer -> CorrectAnswer
+                - Mark -> Mark
+                - AssessmentId -> AssessmentId
+                end note
+
+                :Call Assessment Service to create assessment;
+
+                :Call Assessment Repository to save assessment and question;
+
+                :Commit transaction;
+
+                :Return 200 OK - Assessment created;
+
+            else (No)
+
+                :Return 400 Bad Request - Invalid file;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 404 Not Found - Course not found;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permission for MANAGE_ASSESSMENT;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

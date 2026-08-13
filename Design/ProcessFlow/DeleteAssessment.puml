@@ -1,0 +1,71 @@
+@startuml
+title Delete Assessment - /api/v1/assessment/{id} DELETE (MANAGE_ASSESSMENT)
+
+start
+
+:Controller receives DeleteAssessment request;
+
+note right
+Input Field:
+- AssessmentId
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize MANAGE_ASSESSMENT permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send DeleteAssessmentByIdCommand to MediatR;
+
+        :Validate command data;
+
+        if (Validation failed?) then (Yes)
+
+            :Return 400 Bad Request - Validation failed;
+            stop
+
+        endif
+
+        :DeleteAssessmentByIdHandler executes;
+
+        :Call Assessment Service to get assessment by ID;
+
+        if (Assessment exist?) then (Yes)
+
+            :Begin transaction;
+
+            :Call Assessment Service to delete assessment;
+
+            :Call Assessment Repository to remove assessment;
+
+            :Commit transaction;
+
+            :Return 200 OK - Assessment deleted successfully;
+
+        else (No)
+
+            :Return 404 Not Found - Assessment not found;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permission for MANAGE_ASSESSMENT;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,64 @@
+    @startuml
+    title Delete Course - /api/v1/course/{course_id} DELETE (MANAGE_COURSE)
+
+    start
+
+    :Controller receives DeleteCourse request;
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize MANAGE_COURSE permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send DeleteCourseCommand to MediatR;
+
+            :Validate command data;
+
+            if (Validation failed?) then (Yes)
+
+                :Return 400 Bad Request - Validation failed;
+                stop
+
+            endif
+
+            :DeleteCourseHandler executes;
+
+            :Call Course Service to get course by ID;
+
+            if (Course exists?) then (Yes)
+
+                :Call Course Repository to delete course;
+
+                note right
+                Usually a soft delete
+                end note
+
+                :Return 200 OK - Course deleted successfully;
+
+            else (No)
+
+                :Return 404 Not Found - Course not found;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for MANAGE_COURSE;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml

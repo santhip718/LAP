@@ -1,0 +1,87 @@
+    @startuml
+    title Post Forum Message - /api/v1/course/{course_id}/forum-message POST (PARTICIPATE_FORUM)
+
+    start
+
+    :Controller receives PostForumMessage request;
+
+    note right
+    CourseId
+    MessageText
+    end note
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize PARTICIPATE_FORUM permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send CreateForumMessageCommand to MediatR;
+
+            :Validate command data;
+
+            if (Validation failed?) then (Yes)
+
+                :Return 400 Bad Request - Validation failed;
+                stop
+
+            endif
+
+            :CreateForumMessageHandler executes;
+
+            :Call Forum Service to check if course exists;
+
+            if (Course exists?) then (Yes)
+
+                :Trim and validate message text;
+
+                if (Message text empty?) then (Yes)
+
+                    :Return 400 Bad Request - Message text cannot be empty;
+                    stop
+
+                endif
+
+                :Get current user ID from RequestContext;
+
+                if (User authenticated?) then (Yes)
+
+                    :Create new ForumMessage entity;
+
+                    :Call Forum Service to add message;
+
+                    :Return 201 Created - Forum message posted successfully;
+
+                else (No)
+
+                    :Return 401 Unauthorized - User not authenticated;
+                    stop
+
+                endif
+
+            else (No)
+
+                :Return 404 Not Found - Course not found;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for PARTICIPATE_FORUM;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml

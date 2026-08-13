@@ -1,0 +1,84 @@
+@startuml
+title Update Assessment - /api/v1/assessment/{id} PUT (MANAGE_ASSESSMENT)
+
+start
+
+:Controller receives UpdateAssessment request;
+
+note right
+Input Field:
+- Title
+- Description
+- PassingMark
+- DurationMinute
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize MANAGE_ASSESSMENT permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send UpdateAssessmentCommand to MediatR;
+
+        :Validate command data;
+
+        if (Validation failed?) then (Yes)
+
+            :Return 400 Bad Request - Validation failed;
+            stop
+
+        endif
+
+        :UpdateAssessmentHandler executes;
+
+        :Call Assessment Service to get assessment by ID;
+
+        if (Assessment exist?) then (Yes)
+
+            :Begin transaction;
+
+            :Map UpdateAssessmentRequestDto to Assessment entity;
+
+            note right
+            Assessment Entity Mapping:
+            - Title -> Title
+            - Description -> Description
+            - PassingMark -> PassingMark
+            - DurationMinute -> DurationMinute
+            end note
+
+            :Call Assessment Service to update assessment;
+
+            :Call Assessment Repository to save changes;
+
+            :Commit transaction;
+
+            :Return 200 OK - Assessment updated;
+
+        else (No)
+
+            :Return 404 Not Found - Assessment not found;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permission for MANAGE_ASSESSMENT;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

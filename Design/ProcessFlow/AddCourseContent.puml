@@ -1,0 +1,206 @@
+@startuml
+title Add Course Content - /api/v1/course-content POST (MANAGE_COURSE_CONTENT)
+
+start
+
+:Controller receives AddCourseContent request;
+
+note right
+CourseId
+TopicName
+TopicOrder (optional)
+TopicDuration (optional)
+ContentTitle
+ContentType (Video/PDF)
+VideoUrl (optional)
+SequenceOrder (optional)
+PdfFile (optional)
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize MANAGE_COURSE_CONTENT permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send AddCourseContentCommand to MediatR;
+
+        :Validate command data;
+
+        if (Validation failed?) then (Yes)
+
+            :Return 400 Bad Request - Validation failed;
+            stop
+
+        endif
+
+        :AddCourseContentCommandHandler executes;
+
+        :Execute within database transaction;
+
+        :Call Course Content Service;
+
+        :Call Course Repository;
+
+        :Verify course exists;
+
+        if (Course exists?) then (Yes)
+
+            :Normalize topic name;
+
+            :Call Topic Repository;
+
+            :Find topic by course id and topic name;
+
+            if (Topic exists?) then (Yes)
+
+                :Use existing topic;
+
+            else (No)
+
+                if (Topic order provided?) then (Yes)
+
+                    :Use provided topic order;
+
+                else (No)
+
+                    :Call Topic Repository;
+
+                    :Get highest topic order;
+
+                    :Generate next topic order;
+
+                endif
+
+                :Map AddCourseContentRequestDto to CourseMetaTopic entity;
+
+                note right
+                Mapping parameters:
+                CourseId -> CourseId
+                TopicName -> Name
+                TopicOrder -> SequenceOrder
+                TopicDurationMinute -> DurationMinute
+                end note
+
+                :Create topic entity;
+
+                :Call Topic Repository;
+
+                :Save topic;
+
+            endif
+
+            :Map AddCourseContentRequestDto to CourseContent entity;
+
+            note right
+            Mapping parameters:
+            CourseId -> CourseId
+            MetaTopicId -> MetaTopicId
+            ContentTitle -> Title
+            ContentType -> ContentTypeId
+            VideoUrl -> VideoUrl
+            PdfFilePath -> PdfFilePath
+            SequenceOrder -> SequenceOrder
+            end note
+
+            :Create content entity;
+
+            :Assign topic reference;
+
+            if (Sequence order provided?) then (Yes)
+
+                :Use provided sequence order;
+
+            else (No)
+
+                :Call Content Repository;
+
+                :Get highest content order;
+
+                :Generate next sequence order;
+
+            endif
+
+
+            if (Content Type = PDF?) then (Yes)
+
+                if (PDF file provided?) then (Yes)
+
+                    :Upload PDF to file storage;
+
+                    if (Upload successful?) then (Yes)
+
+                        :Assign PDF path;
+
+                    else (No)
+
+                        :Return 500 Internal Server Error - Failed to upload PDF file;
+                        stop
+
+                    endif
+
+                else (No)
+
+                    :Return 400 Bad Request - PDF file is required for PDF content type;
+                    stop
+
+                endif
+
+            else (Video)
+
+                :Validate video URL;
+
+                if (Video URL valid?) then (Yes)
+
+                    :Assign video URL;
+
+                else (No)
+
+                    :Return 400 Bad Request - Valid video URL is required for video content type;
+                    stop
+
+                endif
+
+            endif
+
+            :Call Content Repository;
+
+            :Save content;
+
+            if (Database operation successful?) then (Yes)
+
+                :Return 201 Created - Course content added successfully;
+
+            else (No)
+
+                :Return 500 Internal Server Error - Failed to add course content;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 404 Not Found - Course not found;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permissions for MANAGE_COURSE_CONTENT;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

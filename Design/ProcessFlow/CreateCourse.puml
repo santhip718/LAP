@@ -1,0 +1,115 @@
+    @startuml
+    title Create Course - /api/v1/course POST (MANAGE_COURSE)
+
+    start
+
+    :Controller receives CreateCourse request;
+
+    note right
+    Title
+    Description
+    CategoryId
+    SubCategoryId
+    DifficultyLevel
+    DurationMinutes
+    ThumbnailFile (optional)
+    Status (Draft/Published)
+    end note
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize MANAGE_COURSE permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send CreateCourseCommand to MediatR;
+
+            :Validate command data;
+
+            if (Validation failed?) then (Yes)
+
+                :Return 400 Bad Request - Validation failed;
+                stop
+
+            endif
+
+            :CreateCourseCommandHandler executes;
+
+            :Call Course Service;
+
+            :Map CreateCourseRequestDto to Course entity;
+
+            note right
+            Mapping parameters:
+            Title -> Title
+            Description -> Description
+            CategoryId -> CategoryId
+            SubCategoryId -> SubCategoryId
+            DifficultyLevelId -> DifficultyLevelId
+            DurationMinute -> DurationMinute
+            IsDrafted -> IsDrafted
+            ThumbnailImgPath -> ThumbnailImgPath
+            end note
+
+            :Create course entity;
+
+
+            if (Thumbnail uploaded?) then (Yes)
+
+                :Upload thumbnail to file storage;
+
+                if (Upload successful?) then (Yes)
+
+                    :Assign thumbnail path;
+
+                else (No)
+
+                    :Return 500 Internal Server Error - Failed to upload thumbnail;
+                    stop
+
+                endif
+
+            endif
+
+            :Call Course Repository;
+
+            :Save course;
+
+            if (Database operation successful?) then (Yes)
+
+                if (IsDrafted?) then (Yes)
+
+                    :Return 201 Created - Course created successfully (Draft);
+
+                else (No)
+
+                    :Return 201 Created - Course created successfully (Published);
+
+                endif
+
+            else (No)
+
+                :Return 500 Internal Server Error - Failed to create course;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for MANAGE_COURSE;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml

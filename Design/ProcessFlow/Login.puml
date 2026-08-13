@@ -1,0 +1,71 @@
+@startuml
+title User Login - /api/v1/auth/login POST (AllowAnonymous)
+
+start
+
+:Controller receives Login request;
+
+note right
+Input Field:
+- Email
+- Password
+end note
+
+:Send LoginCommand to MediatR;
+
+:Validate command data;
+
+if (Validation failed?) then (Yes)
+
+    :Return 400 Bad Request - Validation failed;
+    stop
+
+endif
+
+:LoginHandler executes;
+
+:Call Auth Service to get User by Email;
+
+if (User exist?) then (Yes)
+
+    :Verify password hash;
+
+    if (Password valid?) then (Yes)
+
+        :Fetch user role;
+
+        :Call JWT Helper to generate Access and Refresh token;
+
+        :Create RefreshToken entity;
+
+        note right
+        RefreshToken Entity Mapping:
+        - UserId -> UserId
+        - response.RefreshToken -> Token
+        - DateTime.UtcNow + ExpiryDays -> ExpiryDate
+        - false -> IsRevoked
+        end note
+
+        :Call Auth Service to add RefreshToken;
+
+        :Call Auth Service to SaveChanges;
+
+        :Return 200 OK - Authentication token;
+
+    else (No)
+
+        :Return 401 Unauthorized - Invalid credential;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Invalid credential;
+    stop
+
+endif
+
+stop
+
+@enduml

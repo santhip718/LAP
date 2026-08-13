@@ -1,0 +1,187 @@
+@startuml
+title Assessment Creation Flow
+ 
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam participantBackgroundColor #dbeafe
+skinparam participantBorderColor #3b82f6
+skinparam SequenceGroupBodyBackgroundColor #f0f9ff
+skinparam SequenceGroupBorderColor #3b82f6
+skinparam SequenceLifeLineBorderColor #16a34a
+skinparam SequenceLifeLineBackgroundColor #bbf7d0
+ 
+actor "Admin" as admin
+participant "L&A Portal UI\n(ReactJs)" as ui
+participant "L&A Portal API\n(ASP.NET Core)" as api
+database "Database\n(PostgreSQL)" as db
+ 
+admin -> ui : Open Course Management
+activate ui
+ 
+ui -> api : Fetch available courses
+activate api
+ 
+api -> db : Get active courses
+activate db
+db --> api : Course list
+deactivate db
+ 
+api --> ui : Return course list
+deactivate api
+ 
+ui --> admin : Display available courses
+ 
+admin -> ui : Select Course
+ 
+ui -> api : Fetch assessment by courseId
+activate api
+ 
+api -> db : Find assessment linked to course
+activate db
+db --> api : Existing assessment / empty result
+deactivate db
+ 
+alt Assessment Exists
+ 
+    api --> ui : Return assessment details
+    ui --> admin : Display existing assessment card
+ 
+else Assessment Not Found
+ 
+    api --> ui : Return empty assessment result
+    ui --> admin : Display Add Assessment card
+ 
+end
+ 
+deactivate api
+ 
+admin -> ui : Click Export Template
+ 
+ui -> api : Request question template file
+activate api
+ 
+api --> ui : Download predefined Excel template
+deactivate api
+ 
+ui --> admin : Template exported successfully
+ 
+admin -> admin : Add questions, answers,\noptions and difficulty\ninside Excel template
+ 
+note right of admin
+Supported Question Types:
+- MCQ
+- True / False
+- Fill in the Blank
+ 
+Question Template Contains:
+- Question Text
+- Options
+- Correct Answer
+- Difficulty Weight
+- Question Type
+- Meta Topic
+end note
+ 
+admin -> ui : Open Add Assessment Form
+ 
+admin -> ui : Enter assessment details
+ 
+note right of ui
+Assessment Inputs:
+- Title
+- Description
+- Total Mark
+- Passing Mark
+- Duration
+end note
+ 
+ui -> ui : Validate assessment fields
+ 
+alt Invalid Assessment Data
+ 
+    ui --> admin : Display validation errors
+ 
+else Valid Assessment Data
+ 
+    admin -> ui : Upload completed Excel file
+ 
+    ui -> ui : Validate file type & size
+ 
+    alt Invalid File
+ 
+        ui --> admin : Invalid file error
+ 
+    else Valid File
+ 
+        ui -> api : Upload assessment data + Excel file
+        activate api
+ 
+        api -> api : Validate assessment details
+        api -> api : Validate Excel structure
+        api -> api : Validate headers
+ 
+        alt Invalid Template
+ 
+            api --> ui : Template validation failed
+            ui --> admin : Display template errors
+ 
+        else Valid Template
+ 
+            api -> api : Parse Excel rows
+ 
+            loop For each Question Row
+ 
+                api -> api : Validate question type
+                api -> api : Validate difficulty weight
+                api -> api : Validate correct answer
+                api -> api : Validate meta topic mapping
+                api -> api : Validate question data
+ 
+                alt Invalid Row
+ 
+                    api -> api : Store failed row details
+ 
+                else Valid Row
+ 
+                    api -> api : Prepare question entity
+ 
+                end
+ 
+            end
+ 
+            alt Validation Errors Exist
+ 
+                api --> ui : Return failed rows & validation errors
+                ui --> admin : Display validation summary
+ 
+            else All Data Valid
+ 
+                api -> db : Save assessment
+                activate db
+ 
+                db --> api : Assessment ID generated
+ 
+                api -> db : Save questions linked\nto assessment
+ 
+                db --> api : Questions saved successfully
+                deactivate db
+ 
+                api --> ui : Assessment created successfully
+ 
+                ui --> admin : Show success notification
+ 
+            end
+ 
+        end
+ 
+        deactivate api
+ 
+    end
+ 
+end
+ 
+ui --> admin : Assessment available for students
+ 
+deactivate ui
+ 
+@enduml

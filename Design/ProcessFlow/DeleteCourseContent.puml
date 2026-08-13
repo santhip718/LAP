@@ -1,0 +1,60 @@
+    @startuml
+    title Delete Course Content - /api/v1/course-content/{id} DELETE (MANAGE_COURSE_CONTENT)
+
+    start
+
+    :Controller receives DeleteCourseContent request;
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize MANAGE_COURSE_CONTENT permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send DeleteCourseContentCommand to MediatR;
+
+            :Validate command data;
+
+            if (Validation failed?) then (Yes)
+
+                :Return 400 Bad Request - Validation failed;
+                stop
+
+            endif
+
+            :DeleteCourseContentHandler executes;
+
+            :Call Course Content Service to get content by ID;
+
+            if (Content exists?) then (Yes)
+
+                :Call Course Content Service to delete content;
+
+                :Return 200 OK - Course content deleted successfully;
+
+            else (No)
+
+                :Return 404 Not Found - Course content not found;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for MANAGE_COURSE_CONTENT;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml

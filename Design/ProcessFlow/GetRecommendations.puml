@@ -1,0 +1,47 @@
+@startuml
+title GET /api/v1/course/recommendations - Get Recommendations Flow
+
+start
+
+:Client sends GET /api/v1/course/recommendations request;
+
+note right
+Optional Query Parameters (or Body Parameters):
+- None
+end note
+
+:JWT Authentication Middleware validates access token;
+
+if (JWT token valid?) then (Yes)
+
+    :Request reaches CourseController;
+
+    :Controller validates parameters;
+
+    if (Validation failed?) then (Yes)
+        :Return 400 Bad Request;
+        stop
+    endif
+
+    :Controller forwards request to Mediator;
+
+    :Mediator sends request to Repository/Handler layer;
+
+    :Handler calls CourseService to retrieve recommendations;
+
+    if (Recommendations found?) then (Yes)
+        :Map entity to DTO;
+        :Return 200 OK;
+    else (No)
+        :Return 404 Not Found;
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized;
+
+endif
+
+stop
+
+@enduml

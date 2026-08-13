@@ -1,0 +1,73 @@
+@startuml
+title Get User Profile - /api/v1/user/profile/{id} GET (VIEW_USER)
+
+start
+
+:Controller receives GetUserProfile request;
+note right
+  Id (from route)
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize VIEW_USER permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send GetUserProfileQuery to MediatR;
+
+        :Validate query data (FluentValidation);
+
+        if (Validation failed?) then (Yes)
+            :Return 400 Bad Request - Validation failed;
+            stop
+        endif
+
+        :GetUserProfileHandler executes;
+
+        :Call UserService;
+
+        :Call UserRepository;
+        :Verify user exists;
+
+        if (User exists?) then (Yes)
+
+            :Map User entity to UserProfileDto;
+            note right
+              Id               <- User.Id
+              FullName         <- User.Person.FullName
+              Email            <- User.Person.Email
+              MobileNumber     <- User.Person.MobileNumber
+              Designation      <- User.Person.Designation
+              Gender           <- User.Person.Gender
+              CurrentTier      <- User.CurrentTier
+              Roles            <- User.UserRoles
+              DateCreated      <- User.DateCreated
+              EnrollmentCount  <- User.Enrollments.Count
+              CompletedCourses <- User.Enrollments (Completed)
+            end note
+
+            :Return 200 OK - User profile retrieved successfully;
+            note right
+              Body: UserProfileDto fields
+            end note
+
+        else (No)
+            :Return 404 Not Found - User not found;
+            stop
+        endif
+
+    else (No)
+        :Return 403 Forbidden - Insufficient permissions for VIEW_USER;
+        stop
+    endif
+
+else (No)
+    :Return 401 Unauthorized - Authentication required;
+    stop
+endif
+
+stop
+@enduml

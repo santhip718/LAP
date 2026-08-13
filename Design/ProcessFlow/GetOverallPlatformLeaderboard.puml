@@ -1,0 +1,57 @@
+@startuml
+title Get Overall Platform Leaderboard - /api/v1/leaderboard/overall GET (VIEW_LEADERBOARD)
+
+start
+
+:Controller receives GetOverallPlatformLeaderboard request;
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize VIEW_LEADERBOARD permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send GetOverallPlatformLeaderboardQuery to MediatR;
+
+        :GetOverallPlatformLeaderboardHandler executes;
+
+        :Call Leaderboard Service to get overall leaderboard;
+
+        :Call Leaderboard Repository to fetch user with overall score;
+
+        :Process leaderboard data:
+        - Sort by OverallWeightedScore descending
+        - Take top 25 user
+        - Assign rank;
+
+        :Map User entity to LeaderboardDto;
+
+        note right
+        LeaderboardDto Mapping:
+        - Id -> UserId
+        - Person.FullName -> UserName
+        - OverallWeightedScore -> Score
+        - Rank -> Rank
+        end note
+
+        :Return 200 OK - Ranked overall platform leaderboard;
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permission for VIEW_LEADERBOARD;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,74 @@
+@startuml
+title Get Course Leaderboard - /api/v1/course/{course-id}/leaderboard GET (VIEW_LEADERBOARD)
+
+start
+
+:Controller receives GetLeaderboardByCourseId request;
+
+note right
+Input Field:
+- course-id (Route)
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize VIEW_LEADERBOARD permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send GetLeaderboardByCourseIdQuery to MediatR;
+
+        :Validate command data (check if course exist);
+
+        if (Validation failed?) then (Yes)
+
+            :Return 400 Bad Request - Validation failed;
+            stop
+
+        endif
+
+        :GetLeaderboardByCourseIdHandler executes;
+
+        :Call Leaderboard Service to get history for course;
+
+        :Call Leaderboard Repository to fetch assessment history;
+
+        :Process leaderboard data:
+        - Group by UserId
+        - Select max WeightedScore per user
+        - Break ties with lowest duration
+        - Take top 25 entry
+        - Assign rank;
+
+        :Map AssessmentHistory entity to LeaderboardDto;
+
+        note right
+        LeaderboardDto Mapping:
+        - UserId -> UserId
+        - User.Person.FullName -> UserName
+        - WeightedScore -> Score
+        - (CompletedOn - StartedOn) -> Duration
+        - Rank -> Rank
+        end note
+
+        :Return 200 OK - Ranked course leaderboard;
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permission for VIEW_LEADERBOARD;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

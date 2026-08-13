@@ -1,0 +1,109 @@
+RefSetName,Name,Description
+
+Role,Admin,Administrator
+Role,Student,Student
+
+Gender,Male,Male
+Gender,Female,Female
+Gender,Other,Other
+
+QuestionType,MCQ,Multiple Choice Question
+QuestionType,TrueFalse,True False
+QuestionType,FillInBlank,Fill In Blank
+
+DifficultyLevel,Easy,Easy
+DifficultyLevel,Medium,Medium
+DifficultyLevel,Hard,Hard
+
+ImportStatus,Pending,Pending
+ImportStatus,InProgress,In Progress
+ImportStatus,Completed,Completed
+ImportStatus,Failed,Failed
+
+Tier,Code Cadet,Baseline
+Tier,Syntax Voyager,Easy master
+Tier,Logic Architect,Medium master
+Tier,Runtime Titan,Hard master
+Tier,System Sovereign,Top of the Leaderboard
+
+Designation,Junior Developer,Junior Developer
+Designation,Senior Developer,Senior Developer
+Designation,Software Architect,Software Architect
+Designation,Intern,Intern
+Designation,Associate,Associate
+
+Category,Legal,Legal and Compliance
+Category,Design,Graphic and Creative Design
+Category,Mobile Development,Android and iOS Development
+Category,General Management,Business Management
+Category,Software Testing,QA and Test Automation
+Category,Web Development,Frontend and Backend Development
+Category,Finance,Finance and Accounting
+Category,Leadership,Leadership and Soft Skills
+Category,Cloud Computing,Cloud Platforms and Services
+Category,Database,Database Technologies
+Category,Education,Teaching and Learning
+Category,Communication,Communication Skills
+Category,Supply Chain,Supply Chain Management
+Category,DevOps,DevOps and CI/CD
+Category,Data Science,Data Science and Analytics
+Category,Business Analysis,Business Analysis Courses
+Category,Sales,Sales and Business Development
+Category,Cyber Security,Information Security
+Category,Project Management,Project and Product Management
+Category,Customer Support,Customer Service and Support
+Category,UI/UX Design,User Interface and Experience Design
+Category,Healthcare,Healthcare and Medical
+Category,Others,Others
+
+SubCategory,Scrum,Scrum Framework
+SubCategory,Procurement,Procurement Management
+SubCategory,iOS,iOS Development
+SubCategory,React,React.js
+SubCategory,Machine Learning,Machine Learning
+SubCategory,Django,Django Framework
+SubCategory,Investment Management,Investment Management
+SubCategory,Deep Learning,Deep Learning
+SubCategory,Social Media Marketing,Social Media Marketing
+SubCategory,Linux,Linux Administration
+SubCategory,Auditing,Auditing
+SubCategory,Git,Git Version Control
+SubCategory,ASP.NET Core,ASP.NET Core
+SubCategory,Time Management,Time Management
+SubCategory,Google Cloud,Google Cloud Platform
+SubCategory,Customer Service,Customer Service
+SubCategory,Taxation,Taxation
+SubCategory,MySQL,MySQL Database
+SubCategory,Product Management,Product Management
+SubCategory,Network Security,Network Security
+SubCategory,Employee Relations,Employee Relations
+SubCategory,MongoDB,MongoDB
+SubCategory,Python,Python Programming
+SubCategory,Adobe XD,Adobe XD Design
+SubCategory,Digital Marketing,Digital Marketing
+SubCategory,C#,C# Programming
+SubCategory,Vue.js,Vue.js Framework
+SubCategory,SEO,Search Engine Optimization
+SubCategory,Office Administration,Office Administration
+SubCategory,Teaching Methods,Teaching Methodologies
+SubCategory,Recruitment,Talent Acquisition
+SubCategory,Azure,Microsoft Azure
+SubCategory,Java,Java Programming
+SubCategory,Automation Testing,Selenium and Test Automation
+SubCategory,JavaScript,JavaScript Programming
+SubCategory,Healthcare Administration,Healthcare Administration
+SubCategory,PMP,Project Management Professional
+SubCategory,Android,Android Development
+SubCategory,Tableau,Tableau
+SubCategory,Adobe Photoshop,Adobe Photoshop
+SubCategory,Ethical Hacking,Ethical Hacking
+SubCategory,SQL Server,Microsoft SQL Server
+SubCategory,Sales Management,Sales Management
+SubCategory,TypeScript,TypeScript Programming
+SubCategory,Budgeting,Budget Planning
+SubCategory,Content Marketing,Content Marketing
+SubCategory,Leadership Skills,Leadership Skills
+SubCategory,Graphic Design,Graphic Design
+SubCategory,Document Management,Document Management
+SubCategory,Management Accounting,Management Accounting
+SubCategory,Others,Others

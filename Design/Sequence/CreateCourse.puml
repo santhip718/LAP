@@ -1,0 +1,75 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam participantBackgroundColor #dbeafe
+skinparam participantBorderColor #3b82f6
+skinparam SequenceGroupBodyBackgroundColor #f0f9ff
+skinparam SequenceGroupBorderColor #3b82f6
+skinparam SequenceLifeLineBorderColor #16a34a
+skinparam SequenceLifeLineBackgroundColor #bbf7d0
+
+actor "Admin" as admin
+participant "L&A Portal UI\n(ReactJs)" as ui
+participant "L&A Portal API\n(ASP.NET Core)" as api
+database "Database\n(PostgreSQL)" as db
+
+admin -> ui : Click Add Course
+activate ui
+ui --> admin : Open course creation form
+
+admin -> ui : Enter course title, description,\ncategory, difficulty level,\nduration and thumbnail
+ui -> ui : Validate required fields
+
+loop For each Topic
+    admin -> ui : Enter topic name, order and duration
+    ui -> ui : Add topic to course outline
+
+    admin -> ui : Enter content title, type,\nvideo or PDF reference and order
+    ui -> ui : Attach content to parent topic
+end
+
+alt Save as Draft
+    admin -> ui : Click Save as Draft
+    ui -> api : Submit course with Draft status
+    activate api
+    api -> api : Validate course data\nand resolve reference values
+    api -> db : Save course record as Draft
+    activate db
+    db --> api : Course ID confirmed
+    deactivate db
+    api -> db : Save all course topics\nlinked to the course
+    activate db
+    db --> api : Topic IDs confirmed
+    deactivate db
+    api -> db : Save all content items\nlinked to their topics
+    activate db
+    db --> api : Content IDs confirmed
+    deactivate db
+    api --> ui : Course created successfully as Draft
+    deactivate api
+    ui --> admin : Course saved as Draft\nand visible only to Admin
+
+else Publish
+    admin -> ui : Click Publish
+    ui -> api : Submit course with Published status
+    activate api
+    api -> api : Validate course data\nand resolve reference values
+    api -> db : Save course record as Published
+    activate db
+    db --> api : Course ID confirmed
+    deactivate db
+    api -> db : Save all course topics\nlinked to the course
+    activate db
+    db --> api : Topic IDs confirmed
+    deactivate db
+    api -> db : Save all content items\nlinked to their topics
+    activate db
+    db --> api : Content IDs confirmed
+    deactivate db
+    api --> ui : Course created successfully as Published
+    deactivate api
+    ui --> admin : Course is live\nand open for Student enrollment
+end
+
+deactivate ui
+@enduml

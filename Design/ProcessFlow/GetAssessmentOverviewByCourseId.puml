@@ -1,0 +1,76 @@
+@startuml
+title Get Assessment Overview By Course ID - /api/v1/course/{course-id}/assessment/overview GET (VIEW_ASSESSMENT)
+
+start
+
+:Controller receives GetAssessmentOverviewByCourseId request;
+
+note right
+Input Field:
+- course-id (Route)
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize VIEW_ASSESSMENT permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send GetAssessmentOverviewByCourseIdQuery to MediatR;
+
+        :Validate command data;
+
+        if (Validation failed?) then (Yes)
+
+            :Return 400 Bad Request - Validation failed;
+            stop
+
+        endif
+
+        :GetAssessmentOverviewByCourseIdHandler executes;
+
+        :Call Assessment Service to get assessment by course ID;
+
+        :Call Assessment Repository to fetch assessment;
+
+        if (Assessment found?) then (Yes)
+
+            :Map Assessment entity to AssessmentOverviewDto;
+
+            note right
+            AssessmentOverviewDto Mapping:
+            - Id -> Id
+            - Title -> Title
+            - Description -> Description
+            - PassingMark -> PassingMark
+            - DurationMinute -> DurationMinute
+            end note
+
+            :Return 200 OK - List of assessment overview;
+
+        else (No)
+
+            :Return 404 Not Found - Course or assessment not found;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permission for VIEW_ASSESSMENT;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

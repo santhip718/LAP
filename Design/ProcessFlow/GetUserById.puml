@@ -1,0 +1,74 @@
+@startuml
+title Get User By ID - /api/v1/user/{id} GET (VIEW_USER)
+
+start
+
+:Controller receives GetUserById request;
+note right
+  Id (from route)
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize VIEW_USER permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send GetUserByIdQuery to MediatR;
+
+        :Validate query data (FluentValidation);
+
+        if (Validation failed?) then (Yes)
+            :Return 400 Bad Request - Validation failed;
+            stop
+        endif
+
+        :GetUserByIdHandler executes;
+
+        :Call UserService;
+
+        :Call UserRepository;
+        :Verify user exists;
+
+        if (User exists?) then (Yes)
+
+            :Map User entity to UserEnrichedDto;
+            note right
+              Id                   <- User.Id
+              FullName             <- User.Person.FullName
+              Email                <- User.Person.Email
+              MobileNumber         <- User.Person.MobileNumber
+              Designation          <- User.Person.Designation
+              Gender               <- User.Person.Gender
+              CurrentTier          <- User.CurrentTier
+              Roles                <- User.UserRoles
+              DateCreated          <- User.DateCreated
+              TotalEnrolledCourses <- User.Enrollments.Count
+              CompletedCourses     <- User.Enrollments (Completed)
+              EnrolledCourses      <- User.Enrollments
+            end note
+
+            :Return 200 OK - User retrieved successfully;
+            note right
+              Body: UserEnrichedDto fields
+            end note
+
+        else (No)
+            :Return 404 Not Found - User not found;
+            stop
+        endif
+
+    else (No)
+        :Return 403 Forbidden - Insufficient permissions for VIEW_USER;
+        stop
+    endif
+
+else (No)
+    :Return 401 Unauthorized - Authentication required;
+    stop
+endif
+
+stop
+@enduml

@@ -1,0 +1,123 @@
+@startuml
+title Get Enrollments - /api/v1/enrollment GET (AUTHENTICATED)
+
+start
+
+:Controller receives GetEnrollments request;
+
+note right
+CourseName (optional)
+CategoryId (optional)
+Page (default 1)
+PageSize (default 10)
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize Access;
+
+    if (Authorized?) then (Yes)
+
+        :Send GetEnrollmentsQuery to MediatR;
+
+        :Validate query data;
+
+        if (Validation failed?) then (Yes)
+
+            :Return 400 Bad Request - Validation failed;
+            stop
+
+        endif
+
+        :GetEnrollmentsHandler executes;
+
+        if (CategoryId provided?) then (Yes)
+
+            :Call Reference Data Service;
+
+            :Verify category exists;
+
+            if (Category exists?) then (No)
+
+                :Return 404 Not Found - Category not found;
+                stop
+
+            endif
+
+        endif
+
+        :Check User Role from RequestContext;
+
+        if (Is User Admin?) then (Yes)
+
+            :Set effectiveUserId to null;
+
+            note right
+            Admin can view all enrollments
+            end note
+
+        else (No)
+
+            :Set effectiveUserId to current authenticated UserId;
+
+            note right
+            Regular user can only view their own enrollments
+            end note
+
+        endif
+
+        :Call Enrollment Service;
+
+        :Call Enrollment Repository;
+
+        :Retrieve enrollments applying filters;
+
+        note right
+        Query Filters:
+        - Match Course Name (partial match)
+        - Match Category ID
+        - Match User ID (if regular user)
+        end note
+
+        if (Data retrieval successful?) then (Yes)
+
+            :Calculate total records;
+
+            :Apply pagination (Skip/Take);
+
+            note right
+            Pagination:
+            - Skip: (Page - 1) * PageSize
+            - Take: PageSize
+            end note
+
+            :Map Enrollment entities to EnrollmentDetailDto;
+
+            :Return 200 OK - Enrollments retrieved successfully;
+
+        else (No)
+
+            :Return 500 Internal Server Error - Failed to retrieve enrollments;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permissions;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

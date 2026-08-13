@@ -1,0 +1,20 @@
+@startuml
+!include https://raw.githubusercontent.com/kirchsth/C4-PlantUML/extended/C4_Container.puml
+AddRelTag("sync", $textColor="black", $lineColor="black", $lineStyle=DashedLine())
+
+title Learning & Assessment Portal - Container Diagram
+
+Person(user, "User", "Admin or Student who accesses the portal for training, assessments, and course management.")
+System_Ext(emailService, "Email Service", "Sends password reset emails to users during the forgot password flow.")
+
+System_Boundary(lap, "Learning & Assessment Portal") {
+    Container(spa, "L&A Portal Frontend", "React Js", "Delivers role-based dashboards for Admins and Students. Handles JWT token storage and route guards.")
+    Container(api, "Learning & Assessment Web API", "ASP.NET Core (.NET 8)", "Exposes REST endpoints for auth, course management, assessment engine, Excel bulk ingestion, and leaderboard.")
+    ContainerDb(db, "Application Database", "PostgreSQL", "Stores users, roles, courses, enrollments, questions, quiz attempts, scores, and tier records.")
+}
+
+Rel_D(user, spa, "Logs in, manages courses, takes quizzes, and tracks tier progress", "HTTPS, Browser")
+Rel_D(spa, api, "REST API calls with JWT Bearer token", "HTTPS, JSON / multipart")
+Rel_D(api, emailService, "Sends password reset link", "HTTPS / SMTP")
+Rel_D(api, db, "Reads and writes application data")
+@enduml

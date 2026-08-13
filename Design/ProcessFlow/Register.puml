@@ -1,0 +1,100 @@
+@startuml
+title User Registration - /api/v1/auth/register POST (AllowAnonymous)
+
+start
+
+:Controller receives Register request;
+
+note right
+Input Field:
+- FullName
+- Email
+- MobileNumber
+- Password
+- DesignationId
+- GenderId
+end note
+
+:Send RegisterCommand to MediatR;
+
+:Validate command data;
+
+if (Validation failed?) then (Yes)
+
+    :Return 400 Bad Request - Validation failed;
+    stop
+
+endif
+
+:RegisterHandler executes;
+
+:Begin transaction;
+
+:Check if Email already exist;
+
+if (Email exist?) then (Yes)
+
+    :Return 409 Conflict - Email already exist;
+    stop
+
+endif
+
+:Map DTO to Person entity;
+
+note right
+Person Entity Mapping:
+- FullName -> FullName
+- Email -> Email
+- MobileNumber -> MobileNumber
+- DesignationId -> DesignationId
+- GenderId -> GenderId
+end note
+
+:Call Auth Service to add Person;
+
+:Create User entity linked to Person;
+
+:Call Auth Service to add User;
+
+:Hash password and create UserSecret;
+
+note right
+UserSecret Entity Mapping:
+- UserId -> UserId
+- hash -> PasswordHash
+- salt -> PasswordSalt
+end note
+
+:Call Auth Service to add UserSecret;
+
+:Assign default STUDENT role to User;
+
+:Call Auth Service to add UserRoleMapping;
+
+:Call Auth Service to SaveChanges;
+
+:Get role name for the User;
+
+:Call JWT Helper to generate Access and Refresh token;
+
+:Create RefreshToken entity;
+
+note right
+RefreshToken Entity Mapping:
+- UserId -> UserId
+- response.RefreshToken -> Token
+- DateTime.UtcNow + ExpiryDays -> ExpiryDate
+- false -> IsRevoked
+end note
+
+:Call Auth Service to add RefreshToken;
+
+:Call Auth Service to SaveChanges;
+
+:Commit transaction;
+
+:Return 200 OK - Authentication token;
+
+stop
+
+@enduml

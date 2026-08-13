@@ -1,0 +1,59 @@
+@startuml
+title POST /api/v1/review/course/{course_id} - Create Review Flow
+
+start
+
+:Client sends POST /api/v1/review/course/{course_id} request;
+
+note right
+Optional Query Parameters (or Body Parameters):
+- Rating: int
+- ReviewText: string
+end note
+
+:JWT Authentication Middleware validates access token;
+
+if (JWT token valid?) then (Yes)
+
+    :Request reaches ReviewController;
+
+    :Controller validates parameters;
+
+    if (Validation failed?) then (Yes)
+        :Return 400 Bad Request;
+        stop
+    endif
+
+    :Controller forwards request to Mediator;
+
+    :Mediator sends request to Repository/Handler layer;
+
+    :Handler calls CourseRepository to check course existence;
+
+    if (Course exists?) then (Yes)
+        :Handler calls EnrollmentRepository to check enrollment;
+        if (User enrolled?) then (Yes)
+            :Handler calls ReviewRepository to check for existing review;
+            if (Review already exists?) then (Yes)
+                :Return 409 Conflict;
+            else (No)
+                :Handler calls ReviewRepository to save review;
+                :Map entity to DTO;
+                :Return 200 OK;
+            endif
+        else (No)
+            :Return 400 Bad Request;
+        endif
+    else (No)
+        :Return 404 Not Found;
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized;
+
+endif
+
+stop
+
+@enduml

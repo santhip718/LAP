@@ -1,0 +1,89 @@
+@startuml
+title Update Question By ID - /api/v1/assessment/question/{id} PUT (MANAGE_ASSESSMENT)
+
+start
+
+:Controller receives UpdateQuestionById request;
+
+note right
+Input Field:
+- id (Route)
+- QuestionText
+- OptionList
+- Answer
+- Weight
+- QuestionTypeId
+- MetaTopicId
+end note
+
+:Validate access token;
+
+if (Token valid?) then (Yes)
+
+    :Authorize MANAGE_ASSESSMENT permission;
+
+    if (Authorized?) then (Yes)
+
+        :Send UpdateQuestionByIdCommand to MediatR;
+
+        :Validate command data;
+
+        if (Validation failed?) then (Yes)
+
+            :Return 400 Bad Request - Validation failed;
+            stop
+
+        endif
+
+        :UpdateQuestionByIdHandler executes;
+
+        :Call Assessment Service to get question by ID;
+
+        if (Question exist?) then (Yes)
+
+            :Begin transaction;
+
+            :Update Question entity properties from DTO;
+
+            note right
+            Question Entity Mapping:
+            - QuestionText -> QuestionText
+            - OptionList -> OptionList
+            - Answer -> Answer
+            - Weight -> Weight
+            - QuestionTypeId -> QuestionTypeId
+            - MetaTopicId -> MetaTopicId
+            end note
+
+            :Call Assessment Service to update question;
+
+            :Call Assessment Repository to save changes;
+
+            :Commit transaction;
+
+            :Return 200 OK - Question updated successfully;
+
+        else (No)
+
+            :Return 404 Not Found - Question not found;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 403 Forbidden - Insufficient permission for MANAGE_ASSESSMENT;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized - Authentication required;
+    stop
+
+endif
+
+stop
+
+@enduml

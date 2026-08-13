@@ -1,0 +1,47 @@
+@startuml
+title GET /api/v1/course/{id}/assessment-history - Get Course Assessment History Flow
+
+start
+
+:Client sends GET /api/v1/course/{id}/assessment-history request;
+
+note right
+Optional Query Parameters:
+- page: int
+- pageSize: int
+end note
+
+:JWT Authentication Middleware validates access token;
+
+if (JWT token valid?) then (Yes)
+
+    :Request reaches CourseController;
+
+    :Controller validates parameters;
+
+    if (Validation failed?) then (Yes)
+        :Return 400 Bad Request;
+        stop
+    endif
+
+    :Controller forwards request to Mediator;
+
+    :Mediator sends GetCourseAssessmentHistoryQuery to Handler;
+
+    :Handler calls CourseService;
+
+    :CourseService retrieves paginated assessment history;
+
+    :Handler maps history to AssessmentHistoryDto;
+
+    :Controller returns 200 OK with paginated history;
+
+else (No)
+
+    :Return 401 Unauthorized;
+
+endif
+
+stop
+
+@enduml

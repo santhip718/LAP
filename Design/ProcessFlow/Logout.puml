@@ -1,0 +1,40 @@
+@startuml
+title User Logout - /api/v1/auth/logout POST (AllowAnonymous)
+
+start
+
+:Controller receives Logout request;
+
+note right
+Input Field:
+- RefreshToken
+end note
+
+:Send LogoutCommand to MediatR;
+
+:Validate command data;
+
+if (Validation failed?) then (Yes)
+
+    :Return 400 Bad Request - Validation failed;
+    stop
+
+endif
+
+:LogoutHandler executes;
+
+:Call Auth Service to get RefreshToken by token value;
+
+if (Token exist?) then (Yes)
+
+    :Call Auth Service to revoke the RefreshToken;
+
+    :Call Auth Service to SaveChanges;
+
+endif
+
+:Return 200 OK - Logged out successfully;
+
+stop
+
+@enduml

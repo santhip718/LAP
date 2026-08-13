@@ -1,0 +1,89 @@
+    @startuml
+    title Enroll in Course - /api/v1/course/{course_id}/enrollment POST (REQUEST_ENROLLMENT)
+
+    start
+
+    :Controller receives Enroll request;
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize REQUEST_ENROLLMENT permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send CreateEnrollmentCommand to MediatR;
+
+            :Validate command data;
+
+            if (Validation failed?) then (Yes)
+
+                :Return 400 Bad Request - Validation failed;
+                stop
+
+            endif
+
+            :CreateEnrollmentHandler executes;
+
+            :Call Course Service to get course by ID;
+
+            if (Course exists?) then (Yes)
+
+                :Get current user ID from RequestContext;
+
+                if (User authenticated?) then (Yes)
+
+                    :Call Enrollment Service to check if user already enrolled;
+
+                    if (Already enrolled?) then (No)
+
+                        :Create new Enrollment entity;
+
+                        note right
+                        Status set to false (Pending)
+                        Progress set to 0
+                        end note
+
+                        :Call Enrollment Service to add enrollment;
+
+                        :Return 201 Created - Enrollment created successfully;
+
+                    else (Yes)
+
+                        :Return 400 Bad Request - User already enrolled;
+                        stop
+
+                    endif
+
+                else (No)
+
+                    :Return 401 Unauthorized - User not authenticated;
+                    stop
+
+                endif
+
+            else (No)
+
+                :Return 404 Not Found - Course not found;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for REQUEST_ENROLLMENT;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml

@@ -1,0 +1,86 @@
+@startuml
+title POST /api/v1/assessment/{id}/submit - Submit Assessment Flow
+
+start
+
+:Client sends POST /api/v1/assessment/{id}/submit request;
+
+note right
+Body Parameters:
+- UserId: Guid
+- StartedOn: DateTime
+- Answers: List<Answers>
+end note
+
+:JWT Authentication Middleware validates access token;
+
+if (JWT token valid?) then (Yes)
+
+    :Request reaches AssessmentController;
+
+    :Controller validates parameters;
+
+    if (Validation failed?) then (Yes)
+        :Return 400 Bad Request;
+        stop
+    endif
+
+    :Controller forwards request to Mediator;
+
+    :Mediator sends SubmitAssessmentCommand to Handler;
+
+    :Handler starts transaction;
+
+    :Handler calls AssessmentService;
+
+    if (Assessment exists?) then (Yes)
+
+        :Handler checks user enrollment;
+
+        if (User enrolled?) then (Yes)
+
+            :Handler checks attempt count;
+
+            if (Attempt count < 3?) then (Yes)
+
+                :Handler evaluates answers and calculates score;
+
+                :Handler saves assessment history and answers;
+
+                :Handler commits transaction;
+
+                :Controller returns 200 OK with assessment result;
+
+            else (No)
+
+                :Rollback transaction;
+                :Return 400 Bad Request\n"Maximum attempts reached";
+                stop
+
+            endif
+
+        else (No)
+
+            :Rollback transaction;
+            :Return 400 Bad Request\n"User not enrolled";
+            stop
+
+        endif
+
+    else (No)
+
+        :Rollback transaction;
+        :Return 404 Not Found;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized;
+
+endif
+
+stop
+
+@enduml

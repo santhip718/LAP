@@ -1,0 +1,105 @@
+@startuml
+title User Assessment Flow
+
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam participantBackgroundColor #dbeafe
+skinparam participantBorderColor #3b82f6
+skinparam SequenceGroupBodyBackgroundColor #f0f9ff
+skinparam SequenceGroupBorderColor #3b82f6
+skinparam SequenceLifeLineBorderColor #16a34a
+skinparam SequenceLifeLineBackgroundColor #bbf7d0
+
+actor "User" as user
+participant "L&A Portal UI\n(ReactJs)" as ui
+participant "L&A Portal API\n(ASP.NET Core)" as api
+database "Database\n(PostgreSQL)" as db
+
+user -> ui : Open course assessment
+activate ui
+
+ui -> api : Request course assessment
+activate api
+
+api -> db : Fetch assessment by course
+activate db
+
+db --> api : Assessment details
+deactivate db
+
+api --> ui : Assessment information
+deactivate api
+
+ui --> user : Display assessment details
+
+user -> ui : Click Start Assessment
+
+ui -> ui : Start assessment timer\nand initialize quiz state
+
+ui -> api : Request assessment questions
+activate api
+
+api -> db : Fetch assessment questions
+activate db
+
+db --> api : Question details
+deactivate db
+
+api --> ui : Assessment questions
+deactivate api
+
+ui --> user : Display quiz/test
+
+group Attempt Assessment
+user -> ui : Answer all questions
+
+ui -> ui : Validate mandatory answers
+
+user -> ui : Submit assessment
+
+ui -> api : Submit assessment responses
+activate api
+
+api -> api : Validate submitted answers
+
+api -> db : Fetch correct answers
+activate db
+
+db --> api : Correct answer details
+deactivate db
+
+api -> api : Compare submitted answers\\nwith correct answers
+
+api -> api : Calculate score\\nand weighted score
+
+api -> api : Determine user tier
+
+note over api
+- Validate submitted answers
+- Compare answers
+- Calculate weighted score
+- Determine user tier
+- Persist assessment results
+end note
+
+api -> db : Save assessment answers
+activate db
+
+db --> api : Answers saved successfully
+deactivate db
+
+api -> db : Create assessment history\\nwith score and tier
+activate db
+
+db --> api : Assessment history created
+deactivate db
+
+api --> ui : Final assessment result
+deactivate api
+
+ui --> user : Display score, weighted score\\nand tier
+end
+
+deactivate ui
+
+@enduml

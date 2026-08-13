@@ -1,0 +1,67 @@
+    @startuml
+    title Update Enrollment Status - /api/v1/enrollment/{id} PUT (MANAGE_ENROLLMENT)
+
+    start
+
+    :Controller receives UpdateEnrollment request;
+
+    note right
+    EnrollmentId
+    EnrollmentStatus (True/False)
+    end note
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize MANAGE_ENROLLMENT permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send UpdateEnrollmentCommand to MediatR;
+
+            :Validate command data;
+
+            if (Validation failed?) then (Yes)
+
+                :Return 400 Bad Request - Validation failed;
+                stop
+
+            endif
+
+            :UpdateEnrollmentHandler executes;
+
+            :Call Enrollment Service to get enrollment by ID with details;
+
+            if (Enrollment exists?) then (Yes)
+
+                :Update enrollment status;
+
+                :Call Enrollment Service to update enrollment;
+
+                :Return 200 OK - Enrollment updated successfully;
+
+            else (No)
+
+                :Return 404 Not Found - Enrollment not found;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for MANAGE_ENROLLMENT;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml

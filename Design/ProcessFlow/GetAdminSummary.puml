@@ -1,0 +1,53 @@
+    @startuml
+    title Get Admin Course Summary - /api/v1/course/admin-summary GET (VIEW_COURSE_ADMINISTRATION)
+
+    start
+
+    :Controller receives GetAdminSummary request;
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize VIEW_COURSE_ADMINISTRATION permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send GetAdminCourseSummaryQuery to MediatR;
+
+            :GetAdminCourseSummaryHandler executes;
+
+            :Call Course Repository to get all courses;
+
+            :Call Enrollment Repository to get all enrollments;
+
+            :Calculate metrics by filtering results;
+
+            note right
+            Calculation Filters:
+            - Published Count: count(courses where IsDrafted is false)
+            - Draft Count: count(courses where IsDrafted is true)
+            - Active Students: count(distinct UserIds in enrollments)
+            end note
+
+            :Map results to AdminCourseSummaryDto;
+
+            :Return 200 OK with summary data;
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for VIEW_COURSE_ADMINISTRATION;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml

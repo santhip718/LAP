@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <ExcludeByAttribute>Obsolete,GeneratedCode,CompilerGenerated</ExcludeByAttribute>
+          <ExcludeByFile>**/*.g.cs,**/*.Designer.cs,**/Migrations/**,**/SeedData/**</ExcludeByFile>
+          <Include>
+            <Inclusion>LAP.API*</Inclusion>
+            <Inclusion>LAP.Application*</Inclusion>
+            <Inclusion>LAP.Domain*</Inclusion>
+            <Inclusion>LAP.Infrastructure*</Inclusion>
+          </Include>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

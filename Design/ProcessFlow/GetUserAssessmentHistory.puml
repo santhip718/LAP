@@ -1,0 +1,58 @@
+@startuml
+title GET /api/v1/user/{user_id}/assessment-history - Get User Assessment History Flow
+
+start
+
+:Client sends GET /api/v1/user/{user_id}/assessment-history request;
+
+note right
+Optional Query Parameters:
+- pageNumber: int
+- pageSize: int
+end note
+
+:JWT Authentication Middleware validates access token;
+
+if (JWT token valid?) then (Yes)
+
+    :Request reaches AssessmentController;
+
+    :Controller validates parameters;
+
+    if (Validation failed?) then (Yes)
+        :Return 400 Bad Request;
+        stop
+    endif
+
+    :Controller forwards request to Mediator;
+
+    :Mediator sends GetUserAssessmentHistoryQuery to Handler;
+
+    :Handler calls AssessmentService;
+
+    :AssessmentService fetches user;
+
+    if (User exists?) then (Yes)
+
+        :AssessmentService retrieves paginated history;
+
+        :Handler maps history to AssessmentHistoryItemDto;
+
+        :Controller returns 200 OK with paginated history;
+
+    else (No)
+
+        :Return 404 Not Found;
+        stop
+
+    endif
+
+else (No)
+
+    :Return 401 Unauthorized;
+
+endif
+
+stop
+
+@enduml

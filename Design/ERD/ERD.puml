@@ -1,0 +1,337 @@
+@startuml "l&a erd"
+
+skinparam linetype ortho
+skinparam roundcorner 15
+skinparam shadowing false
+hide methods
+hide stereotypes
+
+skinparam class{
+BackgroundColor White
+BorderColor Black
+}
+
+entity person{
+id : GUID<<PK>>
+full_name : varchar
+email : varchar<<U>>
+mobile_number : varchar
+designation_id : GUID
+gender_id : GUID
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity user{
+id : GUID<<PK>>
+person_id : GUID<<FK>>
+current_tier_id : GUID
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity user_secret{
+id : GUID<<PK>>
+user_id : GUID<<FK>>
+password_hash : varchar
+password_salt : varchar
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity refresh_token{
+id : GUID<<PK>>
+user_id : GUID<<FK>>
+token : varchar
+expiry_date : timestamp
+is_revoked : boolean
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity user_role_mapping{
+id : GUID<<PK>>
+user_id : GUID<<FK>>
+role_id : GUID
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity feature{
+id : GUID<<PK>>
+name : varchar
+url: varchar
+method: varchar
+description : varchar
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity role_feature_mapping{
+id : GUID<<PK>>
+role_id : GUID
+feature_id : GUID<<FK>>
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+
+entity ref_set{
+id : GUID<<PK>>
+name : varchar
+description : varchar
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity ref_term{
+id : GUID<<PK>>
+ref_set_id : GUID <<FK>>
+name : varchar
+description : varchar
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity course{
+id : GUID<<PK>>
+title : varchar
+description : varchar
+category_id : GUID
+sub_category_id : GUID
+overall_rating : decimal
+difficulty_level_id : GUID
+created_by_user_id : GUID<<FK>>
+duration_minute : int
+thumbnail_img_path : varchar
+status : boolean
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity course_meta_topic{
+id : GUID<<PK>>
+course_id : GUID<<FK>>
+sequence_order : int
+name : varchar
+duration_minute : int
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity import_job{
+id : GUID<<PK>>
+status_id : GUID
+total_record : int
+started_on : timestamp
+assessment_id : GUID<<FK>>
+completed_on : timestamp
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity course_content{
+id : GUID<<PK>>
+meta_topic_id : GUID<<FK>>
+title : varchar
+content_type_id : GUID
+video_url : varchar
+pdf_file_path : varchar
+sequence_order : int
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity enrollment{
+id : GUID<<PK>>
+user_id : GUID<<FK>>
+course_id : GUID<<FK>>
+enrolled_on : timestamp
+completed_on : timestamp
+progress_percentage : decimal
+enrollment_status : boolean
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity assessment{
+id : GUID<<PK>>
+course_id : GUID<<FK>>
+title : varchar
+description : varchar
+total_mark : int
+passing_mark : int
+duration_minute : int
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity question{
+id : GUID<<PK>>
+assessment_id : GUID<<FK>>
+meta_topic_id : GUID<<FK>>
+question_type_id : GUID
+question_text : varchar
+option_list : text
+answer : text
+weight : int
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity assessment_history{
+id : GUID<<PK>>
+user_id : GUID<<FK>>
+assessment_id : GUID<<FK>>
+started_on : timestamp
+completed_on : timestamp
+score : decimal
+weighted_score : decimal
+tier_awarded_id : GUID
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity assessment_answer{
+id : GUID<<PK>>
+assessment_history_id : GUID<<FK>>
+question_id : GUID<<FK>>
+selected_answer : varchar
+is_correct : boolean
+obtained_score : decimal
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity review{
+id : GUID<<PK>>
+user_id : GUID<<FK>>
+course_id : GUID<<FK>>
+rating : int
+review_text : varchar
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity forum_message{
+id : GUID<<PK>>
+course_id : GUID<<FK>>
+user_id : GUID<<FK>>
+message_text : varchar
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+entity user_course_progress{
+id : GUID<<PK>>
+enrollment_id : GUID<<FK>>
+course_content_id : GUID<<FK>>
+is_completed : boolean
+completed_on : timestamp
+created_by : GUID
+date_created : timestamp
+updated_by : GUID
+date_updated : timestamp
+is_active : boolean
+}
+
+ref_set ||--{ ref_term
+
+person ||--|| user
+user ||--|| user_secret
+
+user ||--{ user_role_mapping
+user ||--{ refresh_token
+
+feature ||--{ role_feature_mapping
+
+
+
+user ||--{ enrollment
+course ||--{ enrollment
+
+course ||--{ course_meta_topic
+course_meta_topic ||--{ course_content
+
+course ||--|| assessment
+assessment ||--{ question
+assessment ||--{ import_job
+
+course_meta_topic ||--{ question
+
+user ||--{ assessment_history
+assessment ||--{ assessment_history
+
+assessment_history ||--{ assessment_answer
+question ||--{ assessment_answer
+
+user ||--{ review
+course ||--{ review
+
+user ||--{ forum_message
+course ||--{ forum_message
+
+enrollment ||--{ user_course_progress
+course_content ||--{ user_course_progress
+
+@enduml

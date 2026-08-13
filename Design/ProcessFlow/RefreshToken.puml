@@ -1,0 +1,63 @@
+@startuml
+title Refresh Token - /api/v1/auth/refresh POST (AllowAnonymous)
+
+start
+
+:Controller receives Refresh request;
+
+note right
+Input Field:
+- RefreshToken
+end note
+
+:Send RefreshTokenCommand to MediatR;
+
+:Validate command data;
+
+if (Validation failed?) then (Yes)
+
+    :Return 400 Bad Request - Validation failed;
+    stop
+
+endif
+
+:RefreshTokenHandler executes;
+
+:Call Auth Service to get RefreshToken by token value;
+
+if (Token exist and is active?) then (Yes)
+
+    :Fetch User associated with the token;
+
+    :Fetch user role;
+
+    :Call JWT Helper to generate new Access and Refresh token;
+
+    :Call Auth Service to revoke the old RefreshToken;
+
+    :Create new RefreshToken entity;
+
+    note right
+    RefreshToken Entity Mapping:
+    - UserId -> UserId
+    - response.RefreshToken -> Token
+    - DateTime.UtcNow + ExpiryDays -> ExpiryDate
+    - false -> IsRevoked
+    end note
+
+    :Call Auth Service to add new RefreshToken;
+
+    :Call Auth Service to SaveChanges;
+
+    :Return 200 OK - New authentication token;
+
+else (No)
+
+    :Return 401 Unauthorized - Invalid or expired refresh token;
+    stop
+
+endif
+
+stop
+
+@enduml

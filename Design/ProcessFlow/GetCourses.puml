@@ -1,0 +1,41 @@
+@startuml
+title GET /api/v1/course - Get Courses Flow
+
+start
+
+:Client sends GET /api/v1/course request;
+
+note right
+Optional Query Parameters:
+- page: int
+- pageSize: int
+- categoryId: Guid
+- difficultyLevelId: Guid
+- status: bool
+- search: string
+end note
+
+:Request reaches CourseController;
+
+:Controller validates parameters;
+
+if (Validation failed?) then (Yes)
+    :Return 400 Bad Request;
+    stop
+endif
+
+:Controller forwards request to Mediator;
+
+:Mediator sends GetCourseQuery to Handler;
+
+:Handler calls CourseService;
+
+:CourseService retrieves paginated courses with filters;
+
+:Handler maps Course entities to CourseSummaryDto;
+
+:Controller returns 200 OK with paginated course list;
+
+stop
+
+@enduml

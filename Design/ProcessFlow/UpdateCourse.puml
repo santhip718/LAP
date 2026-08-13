@@ -1,0 +1,105 @@
+    @startuml
+    title Update Course - /api/v1/course/{course_id} PUT (MANAGE_COURSE)
+
+    start
+
+    :Controller receives UpdateCourse request;
+
+    note right
+    CourseId
+    Title
+    Description
+    CategoryId
+    SubCategoryId
+    DifficultyLevel
+    DurationMinutes
+    ThumbnailFile (optional)
+    Status (Draft/Published)
+    end note
+
+    :Validate access token;
+
+    if (Token valid?) then (Yes)
+
+        :Authorize MANAGE_COURSE permission;
+
+        if (Authorized?) then (Yes)
+
+            :Send UpdateCourseCommand to MediatR;
+
+            :Validate command data;
+
+            if (Validation failed?) then (Yes)
+
+                :Return 400 Bad Request - Validation failed;
+                stop
+
+            endif
+
+            :UpdateCourseHandler executes;
+
+            :Call Course Service to get course by ID;
+
+            if (Course exists?) then (Yes)
+
+                :Update course properties;
+
+                note right
+                Update fields:
+                Title -> Title
+                Description -> Description
+                CategoryId -> CategoryId
+                SubCategoryId -> SubCategoryId
+                DifficultyLevelId -> DifficultyLevelId
+                DurationMinute -> DurationMinute
+                IsDrafted -> IsDrafted
+                UpdatedBy -> CurrentUserId
+                end note
+
+                if (Thumbnail uploaded?) then (Yes)
+
+                    :Upload thumbnail to file storage;
+
+                    if (Upload successful?) then (Yes)
+
+                        :Assign new thumbnail path to course;
+
+                    else (No)
+
+                        :Return 500 Internal Server Error - Failed to upload thumbnail;
+                        stop
+
+                    endif
+
+                endif
+
+                :Call Course Repository;
+
+                :Update course in database;
+
+                :Return 200 OK - Course updated successfully;
+
+            else (No)
+
+                :Return 404 Not Found - Course not found;
+                stop
+
+            endif
+
+        else (No)
+
+            :Return 403 Forbidden - Insufficient permissions for MANAGE_COURSE;
+            stop
+
+        endif
+
+    else (No)
+
+        :Return 401 Unauthorized - Authentication required;
+        stop
+
+    endif
+
+    stop
+
+    @enduml
