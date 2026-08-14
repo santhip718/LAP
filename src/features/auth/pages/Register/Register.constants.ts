@@ -1,0 +1,58 @@
+import { REGEX } from "@/shared/constants/regex";
+
+export const REGISTER_UI = {
+  BRAND: "EduFlow",
+  TITLE: "Create account",
+  SUBTITLE: "Join the AI-powered learning platform",
+  BACK_TO_HOME: "Back to Home",
+  FULL_NAME_LABEL: "Full Name",
+  FULL_NAME_PLACEHOLDER: "Dr. Jane Smith",
+  EMAIL_LABEL: "Email Address",
+  EMAIL_PLACEHOLDER: "name@institution.edu",
+  PASSWORD_LABEL: "Password",
+  PASSWORD_PLACEHOLDER: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+  MOBILE_LABEL: "Mobile Number",
+  MOBILE_PLACEHOLDER: "+1 555-0123",
+  DESIGNATION_LABEL: "Designation",
+  GENDER_LABEL: "Gender",
+  SELECT_DESIGNATION: "Select designation",
+  SELECT_GENDER: "Select gender",
+  SUBMIT_TEXT: "Create Account",
+  SUBMITTING_TEXT: "Creating Account...",
+  ALREADY_ACCOUNT: "Already have an account?",
+  SIGN_IN: "Sign in",
+  ARROW_BACK_ICON: "arrow_back",
+  ARROW_FORWARD_ICON: "arrow_forward",
+  VISIBILITY_OFF: "visibility_off",
+  VISIBILITY: "visibility",
+} as const;
+
+export const REGISTER_VALIDATION = {
+  FULL_NAME_REQUIRED: "Full name is required",
+  FULL_NAME_MIN_LENGTH: 2,
+  FULL_NAME_MIN_MESSAGE: "At least 2 characters",
+  FULL_NAME_MAX_LENGTH: 100,
+  FULL_NAME_MAX_MESSAGE: "不得超过 100 个字符",
+  FULL_NAME_PATTERN: REGEX.FULL_NAME,
+  FULL_NAME_INVALID: "Only letters, spaces, hyphens, and apostrophes",
+  EMAIL_REQUIRED: "Email is required",
+  EMAIL_PATTERN: REGEX.EMAIL,
+  EMAIL_INVALID: "Enter a valid email (e.g. name@domain.com)",
+  PASSWORD_REQUIRED: "Password is required",
+  PASSWORD_MIN_LENGTH: 8,
+  PASSWORD_MIN_MESSAGE: "At least 8 characters",
+  PASSWORD_MAX_LENGTH: 128,
+  PASSWORD_MAX_MESSAGE: "不得超过 128 个字符",
+  PASSWORD_UPPER_MESSAGE: "Must include an uppercase letter",
+  PASSWORD_LOWER_MESSAGE: "Must include a lowercase letter",
+  PASSWORD_DIGIT_MESSAGE: "Must include a number",
+  MOBILE_REQUIRED: "Mobile number is required",
+  MOBILE_PATTERN: REGEX.MOBILE,
+  MOBILE_INVALID: "Enter a valid number (7-15 digits)",
+  DESIGNATION_REQUIRED: "Select a designation",
+  GENDER_REQUIRED: "Select your gender",
+} as const;
+
+export const REGISTER_ERROR = {
+  FAILED: "Registration failed. Please try again.",
+} as const;

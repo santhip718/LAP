@@ -1,0 +1,81 @@
+.cl-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width, 260px) 1fr;
+  transition: grid-template-columns 0.25s ease;
+  position: relative;
+  max-height: calc(100vh - 80px);
+  background-color: var(--surface-container-lowest);
+}
+
+.cl-layout--collapsed {
+  grid-template-columns: var(--sidebar-collapsed-width, 72px) 1fr;
+}
+
+.cl-sidebar-col {
+  position: relative;
+}
+
+.cl-main {
+  min-width: 0;
+  padding: 32px var(--gutter, 24px) 10px;
+  background: var(--surface-container-lowest);
+}
+
+.cl-mobile-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .cl-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cl-layout--collapsed {
+    grid-template-columns: 1fr;
+  }
+
+  .cl-sidebar-col {
+    display: contents;
+  }
+
+  .cl-main {
+    padding: 10px var(--gutter, 16px) 10px;
+    position: relative;
+  }
+
+  .cl-mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 12px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--card-border-icon);
+    cursor: pointer;
+    margin-bottom: 12px;
+    background: var(--card-border-icon);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-elevated);
+    color: var(--on-surface); /* ← was missing the semicolon */
+    transition:
+      background 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .cl-mobile-toggle:hover {
+    background: var(--card-border-icon);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .cl-mobile-toggle--hidden {
+    display: none !important;
+  }
+
+  .cl-mobile-toggle .material-symbols-outlined {
+    font-size: 22px;
+  }
+}

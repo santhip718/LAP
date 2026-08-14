@@ -1,0 +1,31 @@
+.lap-datatable-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.lap-datatable-wrapper .MuiTableCell-head {
+  font-family: var(--font-label-sm);
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+}
+
+.lap-datatable-wrapper .MuiTableCell-body {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--on-surface);
+}
+
+.lap-datatable-wrapper .MuiTablePagination-root {
+  font-family: var(--font-body-md);
+  font-size: 14px;
+  color: var(--on-surface-variant);
+}
+
+.lap-datatable-wrapper .MuiTablePagination-select {
+  font-family: var(--font-body-md);
+  font-size: 14px;
+}

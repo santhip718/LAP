@@ -1,0 +1,103 @@
+.lap-ca-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 10px;
+}
+
+.lap-ca-item {
+  border-radius: 12px !important;
+  background: var(--surface) !important;
+  box-shadow: var(--shadow-md);
+}
+
+.lap-ca-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--secondary-container);
+  color: var(--on-secondary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lap-ca-num .MuiTypography-root {
+  font-weight: 700;
+}
+
+.lap-ca-title {
+  text-transform: capitalize;
+  color: var(--on-surface);
+}
+
+.lap-ca-locked {
+  color: var(--on-surface-variant);
+  padding: 8px;
+}
+
+.lap-ca-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lap-ca-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.lap-ca-disabled .lap-ca-row {
+  cursor: default;
+}
+
+.lap-ca-row:hover {
+  background: var(--accordion-row-hover);
+}
+
+.lap-ca-disabled .lap-ca-row:hover {
+  background: transparent;
+}
+
+.lap-ca-row-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lap-ca-icon {
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.lap-ca-icon-video {
+  color: var(--primary);
+}
+
+.lap-ca-row:hover .lap-ca-icon-video {
+  transform: scale(1.1);
+}
+
+.lap-ca-disabled .lap-ca-row:hover .lap-ca-icon-video {
+  transform: none;
+}
+
+.lap-ca-icon-pdf {
+  color: var(--secondary);
+}
+
+.lap-ca-content-title {
+  text-transform: capitalize;
+  color: var(--on-surface);
+}
+
+.lap-ca-duration {
+  color: var(--on-surface-variant);
+  white-space: nowrap;
+}

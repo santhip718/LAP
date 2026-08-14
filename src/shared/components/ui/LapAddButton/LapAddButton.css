@@ -1,0 +1,25 @@
+.lap-addbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.lap-addbtn:hover {
+  opacity: 0.9;
+}
+
+.lap-addbtn:active {
+  transform: scale(0.95);
+}
+
+.lap-addbtn-icon {
+  font-size: 20px;
+}

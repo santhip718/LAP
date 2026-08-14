@@ -1,0 +1,176 @@
+.my-enrollments {
+  background: var(----surface-container-lowest);
+}
+
+.my-enrollments-main {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 32px var(--gutter) 80px;
+}
+
+/* ── Page Header (top-level) ── */
+.my-enrollments-header {
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+}
+
+.my-enrollments-header h3 {
+  margin: 0 0 6px;
+}
+
+.my-enrollments-header p {
+  margin: 0;
+  color: var(--on-surface-variant);
+}
+
+.my-enrollments-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 40;
+}
+
+.my-enrollments-empty {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.my-enrollments-empty-icon {
+  font-size: 64px;
+  color: var(--on-surface-variant);
+  opacity: 0.4;
+  margin-bottom: 16px;
+}
+
+.my-enrollments-browse {
+  background: var(--secondary);
+  color: var(--on-primary);
+  padding: 12px 32px;
+  border-radius: 8px;
+
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.my-enrollments-browse:hover {
+  background: var(--primary-container);
+}
+
+/* ── Recommended Section (sub-level, visually distinct from page header) ── */
+.my-enrollments-recommended {
+  margin-bottom: 48px;
+  background: var(--surface-container-low);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.my-enrollments-recommended-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.my-enrollments-recommended-header::before {
+  content: "";
+  width: 4px;
+  height: 22px;
+  background: var(--secondary);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.my-enrollments-recommended-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.my-enrollments-recommended-header h5 {
+  margin: 0 0 2px;
+}
+
+.my-enrollments-recommended-header p {
+  margin: 0;
+  color: var(--on-surface-variant);
+  font-size: 0.85rem;
+}
+
+.my-enrollments-recommended-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 8px 4px 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.my-enrollments-recommended-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.my-enrollments-recommended-scroll::-webkit-scrollbar-track {
+  background: var(--outline-variant);
+  border-radius: 3px;
+}
+
+.my-enrollments-recommended-scroll::-webkit-scrollbar-thumb {
+  background: var(--outline);
+  border-radius: 3px;
+}
+
+.my-enrollments-recommended-item {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+}
+
+/* ── My Courses Section heading (so the grid isn't headerless after Recommended) ── */
+.my-enrollments-courses-header {
+  margin-bottom: 20px;
+}
+
+.my-enrollments-courses-header h5 {
+  margin: 0;
+}
+
+.my-enrollments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .my-enrollments-main {
+    padding: 24px var(--gutter) 60px;
+  }
+
+  .my-enrollments-recommended {
+    padding: 16px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-enrollments-main {
+    padding: 20px var(--gutter) 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .my-enrollments-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .my-enrollments-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

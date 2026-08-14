@@ -1,0 +1,125 @@
+.cc-canvas {
+  width: 100%;
+  height: 70vh;
+  padding: 0px 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  position: relative; /* anchor for the fullscreen button */
+}
+
+.cc-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Fullscreen button — only visible on PDF */
+.cc-fullscreen-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 32px; /* 32px to clear the PDF viewer's own scrollbar */
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--canvas-border);
+  background: var(--canvas-overlay);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--canvas-text);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+
+.cc-fullscreen-btn:hover {
+  background: var(--canvas-overlay);
+}
+
+.cc-fullscreen-btn:active {
+  transform: scale(0.93);
+}
+
+.cc-fullscreen-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* When the container itself is the fullscreen element */
+.cc-canvas--fullscreen {
+  height: 100vh !important;
+  width: 100vw !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: var(--canvas-bg);
+}
+
+.cc-canvas--fullscreen .cc-fullscreen-btn {
+  bottom: 16px;
+  right: 16px;
+}
+
+.cc-placeholder {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--surface-container-low);
+  border-radius: 12px;
+  color: var(--on-surface-variant);
+}
+
+.cc-placeholder-icon {
+  font-size: 64px;
+  opacity: 0.4;
+}
+
+.cc-placeholder-text {
+  margin: 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .cc-canvas {
+    height: 260px;
+    padding: 0;
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .cc-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .cc-fullscreen-btn {
+    bottom: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+  }
+
+  .cc-fullscreen-btn .material-symbols-outlined {
+    font-size: 18px;
+  }
+
+  .cc-placeholder {
+    height: 200px;
+    border-radius: 0;
+    gap: 12px;
+  }
+
+  .cc-placeholder-icon {
+    font-size: 40px;
+  }
+}

@@ -1,0 +1,126 @@
+.up-page {
+  background: var(--surface);
+}
+
+.up-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px var(--gutter) 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.up-title {
+  font-family: var(--font-headline-lg);
+  line-height: 44px;
+  color: var(--primary);
+}
+
+.up-card {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.up-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-headline-lg);
+  line-height: 24px;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.up-card-title .material-symbols-outlined {
+  font-size: 22px;
+  color: var(--secondary);
+}
+
+.up-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.up-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.up-label {
+  font-family: var(--font-label-sm);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.up-value {
+  color: var(--on-surface);
+}
+
+.up-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.up-role-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: var(--surface-container);
+  font-family: var(--font-label-sm);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: capitalize;
+}
+
+.up-state {
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  color: var(--on-surface-variant);
+  font-size: 14px;
+}
+
+.up-state .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.up-error-state {
+  min-height: auto;
+  flex-direction: column;
+  padding: 48px 24px;
+  gap: 12px;
+}
+
+.up-retry-btn {
+  margin-top: 8px;
+  padding: 8px 16px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--error);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.up-retry-btn:hover {
+  background: rgba(186, 26, 26, 0.08);
+}

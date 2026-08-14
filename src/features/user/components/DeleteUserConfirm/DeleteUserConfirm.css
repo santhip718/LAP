@@ -1,0 +1,79 @@
+.du-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.du-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(186, 26, 26, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.du-icon {
+  font-size: 28px;
+  color: var(--danger);
+}
+
+.du-message {
+  line-height: 20px;
+  color: var(--on-surface-variant);
+}
+
+.du-user-name {
+  color: var(--on-surface);
+}
+
+.du-user-name strong {
+  font-weight: 600;
+}
+
+.du-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.du-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.du-btn-cancel {
+  border: 1px solid var(--outline-variant);
+  background: transparent;
+  color: var(--on-surface);
+}
+
+.du-btn-cancel:hover:not(:disabled) {
+  background: var(--surface-container);
+}
+
+.du-btn-delete {
+  border: none;
+  background: var(--danger);
+  color: var(--on-primary);
+}
+
+.du-btn-delete:hover:not(:disabled) {
+  background: var(--danger-hover);
+}
+
+.du-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

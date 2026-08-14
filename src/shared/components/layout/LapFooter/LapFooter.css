@@ -1,0 +1,115 @@
+.footer {
+  background: var(--surface-container-lowest);
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  border-top: 0.0625rem solid var(--outline-light);
+}
+
+.footer-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--margin-mobile);
+  padding-right: var(--margin-mobile);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gutter);
+}
+
+@media (min-width: 48rem) {
+  .footer-inner {
+    grid-template-columns: repeat(4, 1fr);
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+}
+
+.footer-brand {
+  grid-column: 1;
+}
+
+@media (min-width: 48rem) {
+  .footer-brand {
+    grid-column: span 1;
+  }
+}
+
+.footer-logo {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.footer-logo-img {
+  width: 10.5rem;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.footer-tagline {
+  color: var(--on-surface-variant);
+  margin: 0 !important; /* kill MUI's default <p> margin so it aligns with link columns */
+}
+
+/* every footer column (brand + link sections) shares the same top alignment */
+.footer-inner > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-heading {
+  text-transform: uppercase;
+  margin: 0 0 1.5rem !important; /* override MUI default h5 margin-top/bottom */
+  color: var(--primary);
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-link {
+  color: var(--on-surface-variant);
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.8125rem;
+  transition:
+    color 0.2s,
+    transform 0.2s;
+  line-height: 1.2;
+}
+
+.footer-link span {
+  margin: 0 !important; /* kill MUI Typography default margin on the inner span */
+}
+
+.footer-link:hover {
+  color: var(--secondary);
+  transform: translateX(0.25rem);
+}
+
+.footer-bottom {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--margin-mobile);
+  padding-right: var(--margin-mobile);
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 0.0625rem solid var(--outline-lighter);
+}
+
+@media (min-width: 48rem) {
+  .footer-bottom {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+}
+
+.footer-copyright {
+  text-align: center;
+  color: var(--on-surface-variant);
+  margin: 0 !important;
+}

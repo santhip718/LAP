@@ -1,0 +1,108 @@
+.discover-page {
+  background: var(--transparent);
+}
+
+.discover-main {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 32px var(--gutter) 80px;
+}
+
+.discover-hero {
+  margin-bottom: 48px;
+}
+
+.discover-hero-title {
+  margin-bottom: 12px;
+}
+
+.discover-hero-subtitle {
+  margin-bottom: 24px !important;
+  max-width: 600px;
+}
+
+@media (max-width: 768px) {
+  .discover-main {
+    padding: 24px var(--gutter) 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .discover-main {
+    padding: 10px 10px 40px;
+  }
+
+  .discover-hero {
+    margin-bottom: 32px;
+  }
+}
+
+.discover-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.discover-category {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  color: var(--on-surface-variant);
+  padding: 8px 16px;
+  border-radius: 9999px;
+
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.discover-category:hover {
+  background: var(--surface-container-high);
+}
+
+.discover-category-active {
+  background: var(--secondary);
+  color: var(--on-primary);
+  border-color: var(--secondary);
+}
+
+.discover-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  padding: 24px;
+}
+
+@media (max-width: 600px) {
+  .discover-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .discover-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.discover-sentinel {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  height: 80px;
+}
+
+.discover-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--on-surface-variant);
+}
+
+.discover-end {
+  text-align: center;
+  padding: 40px 24px 0;
+  color: var(--on-surface-variant);
+}

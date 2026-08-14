@@ -1,0 +1,38 @@
+.rv-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Sections ── */
+.rv-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rv-section-title {
+  margin: 0;
+}
+
+/* ── List ── */
+.rv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Infinite scroll sentinel ── */
+.rv-sentinel {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.rv-end {
+  text-align: center;
+  padding: 16px 0;
+  color: var(--on-surface-variant);
+}
+
+

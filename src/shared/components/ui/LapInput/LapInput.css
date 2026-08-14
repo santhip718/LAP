@@ -1,0 +1,94 @@
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.input-label {
+  text-transform: uppercase;
+  color: var(--input-label-color);
+  padding-left: 0.25rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 0.125rem solid var(--outline-variant);
+  padding: 0.75rem 0.25rem;
+  color: var(--primary);
+  font-family: var(--font-body-md);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.input:focus {
+  outline: none;
+  border-bottom: 0.125rem solid var(--primary);
+}
+
+.input--search {
+  border: 0.0625rem solid var(--outline-variant);
+  border-radius: 2rem;
+  padding: 0.625rem 1rem 0.625rem 2.5rem;
+  background: var(--surface-container-lowest);
+}
+
+.input--search:focus {
+  border-color: var(--primary);
+  border-bottom-color: var(--primary);
+  border-radius: 2rem;
+}
+
+.input-field--search .input-wrapper::before {
+  content: "search";
+  font-family: "Material Symbols Outlined";
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+  color: var(--outline);
+  pointer-events: none;
+}
+
+.input--ghost {
+  border-bottom: none;
+  background: transparent;
+  padding: 0.5rem 0.25rem;
+}
+
+.input--ghost:focus {
+  border-bottom: none;
+}
+
+.input--error {
+  border-bottom-color: var(--error);
+}
+
+.input--error:focus {
+  border-bottom-color: var(--error);
+}
+
+.input-right {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.input-error {
+  color: var(--error);
+  padding-left: 0.25rem;
+}
+

@@ -1,0 +1,46 @@
+.create-assessment-page {
+  min-height: 100vh;
+  background: var(--surface);
+}
+
+.create-assessment-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 2rem 3rem;
+}
+
+.create-assessment-header {
+  margin-bottom: 2rem;
+}
+
+.create-assessment-back-btn {
+  margin-bottom: 1rem;
+}
+
+.create-assessment-title {
+  color: var(--on-surface);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.create-assessment-subtitle {
+  color: var(--on-surface-variant);
+}
+
+.create-assessment-card {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+@media (max-width: 768px) {
+  .create-assessment-container {
+    padding: 1.25rem 1rem 2rem;
+  }
+  
+  .create-assessment-card {
+    padding: 1.5rem;
+  }
+}

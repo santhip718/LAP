@@ -1,0 +1,181 @@
+@startuml
+title Learning & Assessment Portal (L&A) - Component Architecture
+ 
+top to bottom direction
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+ 
+package "Shared Components" {
+component HeaderComponent
+component ToasterService
+component ConfirmationDialogComponent
+component SearchComponent
+component FilterComponent
+component PaginationComponent
+}
+ 
+package "Authentication" {
+component LoginComponent
+component RegisterComponent
+}
+ 
+LoginComponent --> ToasterService
+RegisterComponent --> ToasterService
+ 
+package "Student Course Management" {
+component CourseListComponent
+component CourseDetailsComponent
+component EnrollmentRequestComponent
+component EnrolledCourseComponent
+ 
+CourseListComponent --> SearchComponent
+CourseListComponent --> FilterComponent
+CourseListComponent --> PaginationComponent
+ 
+CourseListComponent --> CourseDetailsComponent
+CourseDetailsComponent --> EnrollmentRequestComponent
+EnrollmentRequestComponent --> EnrolledCourseComponent
+ 
+}
+ 
+package "Course Learning" {
+ 
+component CourseSidebarComponent
+component CourseContentComponent
+component TopicNavigationComponent
+component ContentViewerComponent
+component CourseProgressComponent
+component MarkAsCompletedComponent
+ 
+EnrolledCourseComponent --> CourseContentComponent
+ 
+CourseContentComponent --> CourseSidebarComponent
+CourseContentComponent --> TopicNavigationComponent
+CourseContentComponent --> ContentViewerComponent
+CourseContentComponent --> CourseProgressComponent
+CourseContentComponent --> MarkAsCompletedComponent
+ 
+ 
+}
+ 
+package "Course Forum" {
+ 
+ 
+component ForumComponent
+component ForumMessageListComponent
+component CreateForumMessageComponent
+ 
+CourseContentComponent --> ForumComponent
+ 
+ForumComponent --> ForumMessageListComponent
+ForumComponent --> CreateForumMessageComponent
+ 
+ 
+}
+ 
+package "Student Assessment" {
+ 
+ 
+component AssessmentOverviewComponent
+component AssessmentAttemptComponent
+component AssessmentTimerComponent
+ 
+component QuestionComponent
+component MCQQuestionComponent
+component FillInBlankQuestionComponent
+component TrueFalseQuestionComponent
+ 
+component AssessmentResultComponent
+component SuggestedTopicComponent
+ 
+CourseContentComponent --> AssessmentOverviewComponent
+ 
+AssessmentOverviewComponent --> AssessmentAttemptComponent
+ 
+AssessmentAttemptComponent --> AssessmentTimerComponent
+AssessmentAttemptComponent --> QuestionComponent
+ 
+QuestionComponent --> MCQQuestionComponent
+QuestionComponent --> FillInBlankQuestionComponent
+QuestionComponent --> TrueFalseQuestionComponent
+ 
+AssessmentAttemptComponent --> AssessmentResultComponent
+ 
+AssessmentResultComponent --> SuggestedTopicComponent
+ 
+ 
+}
+ 
+package "Leaderboard" {
+ 
+ 
+component OverallLeaderboardComponent
+component CourseLeaderboardComponent
+ 
+CourseContentComponent --> CourseLeaderboardComponent
+AssessmentResultComponent --> CourseLeaderboardComponent
+ 
+ 
+}
+ 
+package "Admin Course Management" {
+ 
+ 
+component AdminCourseListComponent
+component CourseFormComponent
+ 
+component TopicComponent
+component MetaTopicComponent
+component CourseContentUploadComponent
+ 
+component EnrollmentRequestListComponent
+component ApproveEnrollmentComponent
+component RejectEnrollmentComponent
+ 
+AdminCourseListComponent --> SearchComponent
+AdminCourseListComponent --> FilterComponent
+AdminCourseListComponent --> PaginationComponent
+ 
+AdminCourseListComponent --> CourseFormComponent
+ 
+CourseFormComponent --> TopicComponent
+TopicComponent --> MetaTopicComponent
+MetaTopicComponent --> CourseContentUploadComponent
+ 
+EnrollmentRequestListComponent --> ApproveEnrollmentComponent
+EnrollmentRequestListComponent --> RejectEnrollmentComponent
+ 
+ApproveEnrollmentComponent --> ConfirmationDialogComponent
+RejectEnrollmentComponent --> ConfirmationDialogComponent
+ 
+ 
+}
+ 
+package "Admin Assessment Management" {
+ 
+component AssessmentListComponent
+component AssessmentOverviewAdminComponent
+component CreateAssessmentComponent
+ 
+component QuestionFileUploadComponent
+component QuestionParserComponent
+component QuestionValidationComponent
+ 
+AssessmentListComponent --> SearchComponent
+AssessmentListComponent --> PaginationComponent
+ 
+AssessmentListComponent --> AssessmentOverviewAdminComponent
+AssessmentListComponent --> CreateAssessmentComponent
+ 
+CreateAssessmentComponent --> QuestionFileUploadComponent
+QuestionFileUploadComponent --> QuestionParserComponent
+QuestionParserComponent --> QuestionValidationComponent
+ 
+ 
+}
+ 
+CourseFormComponent --> AssessmentListComponent
+ 
+OverallLeaderboardComponent --> HeaderComponent
+ 
+@enduml

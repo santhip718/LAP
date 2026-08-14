@@ -1,0 +1,175 @@
+.coursecard {
+  width: 100%;
+  max-width: 100%;
+  background: var(--surface);
+  border-radius: 28px;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.coursecard:hover {
+  transform: scale(1.04);
+}
+
+@media (max-width: 640px) {
+  .coursecard {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .coursecard-img {
+    width: 100px;
+    aspect-ratio: auto;
+    flex-shrink: 0;
+    margin: 6px;
+    overflow: hidden;
+  }
+
+  .coursecard-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .coursecard-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+
+}
+
+.coursecard-img {
+  position: relative;
+  margin: 6px;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  flex-shrink: 0; /* never let the image shrink to fill space */
+}
+
+.coursecard-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.coursecard-img-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--outline-variant);
+  color: var(--on-surface-variant);
+}
+
+.coursecard-img-fallback .material-symbols-outlined {
+  font-size: 40px;
+}
+
+.coursecard-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--on-surface);
+  color: var(--surface-container-lowest);
+  border-radius: 50px;
+  font-size: 11px;
+  padding: 4px 10px;
+  line-height: 1.2;
+}
+
+.coursecard-body {
+  padding: 12px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* fill remaining card height */
+}
+
+.coursecard-title {
+  margin: 0 0 4px;
+}
+
+.coursecard-subtitle {
+  margin: 0 0 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.coursecard-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.coursecard-stats {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.coursecard-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.coursecard-stat .material-symbols-outlined {
+  color: var(--on-surface-variant);
+}
+
+.coursecard-pill {
+  border: none;
+  border-radius: 50px;
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  background: var(--primary);
+  color: var(--on-primary);
+  line-height: 1.2;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+}
+
+.coursecard-pill:hover {
+  background: var(--surface-container-high);
+}
+
+.coursecard-pill:active {
+  transform: scale(0.97);
+}
+
+.coursecard-pill-resume {
+  background: var(--success);
+  color: var(--on-success);
+}
+
+.coursecard-pill-resume:hover {
+  background: var(--success-container);
+}
+
+.coursecard-pill-enrolled {
+  background: var(--primary-container);
+  color: var(--on-primary);
+  cursor: not-allowed;
+}
+
+.coursecard-pill-enrolled:hover {
+  background: var(--primary-container);
+}

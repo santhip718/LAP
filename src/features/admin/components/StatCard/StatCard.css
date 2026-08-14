@@ -1,0 +1,63 @@
+.statcard {
+  background: var(--surface-container-lowest);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  padding: 1.125rem 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.statcard-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface-variant);
+  margin-bottom: 0.25rem;
+}
+
+.statcard-value {
+  font-family: var(--font-headline-lg);
+  font-size: 1.625rem;
+  line-height: 2rem;
+  color: var(--primary);
+  margin: 0;
+}
+
+.statcard-trend {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.statcard-trend-emerald {
+  color: var(--success);
+}
+
+.statcard-trend-secondary {
+  color: var(--secondary);
+}
+
+.statcard-trend-icon {
+  font-size: 1rem;
+  font-variation-settings: "FILL" 1;
+}
+
+.statcard-progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--outline-variant);
+  border-radius: 4px;
+  margin-top: 0.625rem;
+  overflow: hidden;
+}
+
+.statcard-progress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}

@@ -1,0 +1,88 @@
+.lap-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--confirm-overlay, rgba(0, 0, 0, 0.5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  animation: lapFadeIn 0.2s ease-out;
+}
+
+.lap-confirm-dialog {
+  background-color: var(--surface-container-lowest);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: var(--confirm-shadow, 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2));
+  animation: lapScaleIn 0.2s ease-out;
+}
+
+.lap-confirm-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.lap-confirm-message {
+  margin: 0 0 1.5rem;
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
+  line-height: 1.5;
+}
+
+.lap-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.lap-confirm-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: 0.0625rem solid transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.lap-confirm-btn--cancel {
+  background-color: var(--surface-container-lowest);
+  border-color: var(--outline-variant);
+  color: var(--on-surface-variant);
+}
+
+.lap-confirm-btn--cancel:hover {
+  background-color: var(--surface);
+  border-color: var(--outline);
+}
+
+.lap-confirm-btn--confirm {
+  background-color: var(--error);
+  color: var(--on-primary);
+  border-color: var(--error);
+}
+
+.lap-confirm-btn--confirm:hover {
+  background-color: var(--danger-hover);
+  border-color: var(--danger-hover);
+}
+
+@keyframes lapFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes lapScaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

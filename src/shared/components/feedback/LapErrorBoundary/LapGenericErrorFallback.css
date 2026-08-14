@@ -1,0 +1,11 @@
+.lap-generic-error-details {
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 600px) {
+  .lap-generic-error-details {
+    font-size: 0.75rem;
+    max-height: 200px;
+  }
+}

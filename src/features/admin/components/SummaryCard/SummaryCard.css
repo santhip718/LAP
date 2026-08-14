@@ -1,0 +1,9 @@
+.summary-card {
+  background: var(--surface-container-lowest);
+  border-radius: 0.75rem;
+  box-shadow: var(--card-shadow);
+}
+
+.summary-card-content {
+  padding: 1.5rem 2rem;
+}

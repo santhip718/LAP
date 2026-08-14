@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
+
+:root {
+  --primary: #1c2152;
+  --on-primary: #ffffff;
+  --primary-container: #303560;
+  --secondary: #4648d4;
+  --surface: #f9f9ff;
+  --surface-container-lowest: #ffffff;
+  --on-surface: #2b446b;
+  --on-surface-variant: #414849;
+  --outline-variant: #c0c8c9;
+  --outline: #717879;
+  --transparent: transparent;
+
+  --font-label-sm: "Geist", sans-serif;
+  --font-headline-lg: "Hanken Grotesk", sans-serif;
+  --font-display-lg: "Hanken Grotesk", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+
+  --container-max: 1280px;
+  --margin-mobile: 20px;
+  --gutter: 24px;
+  --section-gap: 120px;
+  --base: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body-md);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--on-surface);
+  background: var(--surface);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("./assets/images/bg7.jpg") center / cover no-repeat;
+  z-index: -1;
+}
+
+::selection {
+  background: #c0c1ff;
+  color: #07006c;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+  vertical-align: middle;
+}

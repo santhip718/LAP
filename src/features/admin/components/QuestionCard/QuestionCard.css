@@ -1,0 +1,10 @@
+.question-card {
+  background: var(--surface-container-lowest);
+  border-radius: 0.75rem;
+  box-shadow: var(--card-shadow);
+  transition: border-color 0.2s;
+}
+
+.question-card:hover {
+  border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+}

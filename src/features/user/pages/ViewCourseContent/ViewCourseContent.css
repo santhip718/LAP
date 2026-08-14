@@ -1,0 +1,376 @@
+.vcc-canvas-wrapper {
+  margin-left: calc(-1 * var(--gutter, 24px));
+  margin-right: calc(-1 * var(--gutter, 24px));
+  width: auto;
+  position: relative;
+}
+
+.vcc-content-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--loader-overlay);
+  z-index: 10;
+}
+
+.vcc-error-banner {
+  padding: 24px;
+  text-align: center;
+}
+
+.vcc-sidebar-status {
+  padding: 12px;
+  text-align: center;
+}
+
+/* Navigation bar below canvas */
+.vcc-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px var(--gutter);
+  margin-top: 8px;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.vcc-nav-left,
+.vcc-nav-right {
+  display: flex;
+  flex: 1;
+}
+
+.vcc-nav-right {
+  justify-content: flex-end;
+}
+
+.vcc-nav-center {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vcc-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  border: 1px solid var(--outline-variant);
+  border-radius: 10px;
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  font-family: var(--font-label-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    opacity 0.2s;
+}
+
+.vcc-nav-btn:hover:not(:disabled) {
+  background: var(--surface-container);
+  border-color: var(--outline);
+}
+
+.vcc-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.vcc-nav-btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+
+.vcc-nav-btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.vcc-nav-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* Complete button */
+.vcc-complete-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 10px;
+  background: var(--secondary);
+  color: var(--on-primary);
+  font-family: var(--font-label-sm);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    opacity 0.2s;
+}
+
+.vcc-complete-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.vcc-complete-btn:disabled {
+  cursor: not-allowed;
+}
+
+.vcc-complete-btn-done {
+  background: var(--success);
+}
+
+.vcc-complete-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* Assessment section styles */
+.vcc-assessment-section {
+  margin-top: 12px;
+  padding: 16px;
+  background: var(--surface-container-lowest);
+  border-radius: 12px;
+  border: 1px solid var(--outline-variant);
+  border-top: 3px solid var(--secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vcc-assessment-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vcc-assessment-icon {
+  font-size: 28px;
+  color: var(--secondary);
+  flex-shrink: 0;
+}
+
+.vcc-assessment-icon-empty {
+  color: var(--outline);
+}
+
+.vcc-assessment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vcc-assessment-title {
+  font-family: var(--font-label-sm);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.vcc-assessment-meta {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--on-surface-variant);
+}
+
+.vcc-assessment-btn {
+  width: 100%;
+  padding: 10px 16px;
+  background: var(--secondary);
+  color: var(--on-secondary);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-label-sm);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    opacity 0.2s,
+    transform 0.15s;
+}
+
+.vcc-assessment-btn:hover {
+  opacity: 0.9;
+}
+
+.vcc-assessment-btn:active {
+  transform: scale(0.97);
+}
+
+.vcc-assessment-btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--outline);
+}
+
+.vcc-assessment-btn-disabled:hover {
+  opacity: 0.5;
+}
+
+.vcc-assessment-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vcc-assessment-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vcc-assessment-progress-label {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+.vcc-assessment-progress-pct {
+  color: var(--on-surface-variant);
+}
+
+.vcc-assessment-progress-pct-done {
+  color: var(--success);
+}
+
+.vcc-assessment-progress-track {
+  position: relative;
+  height: 6px;
+  background: var(--surface-container);
+  border-radius: 9999px;
+  overflow: visible;
+}
+
+.vcc-assessment-progress-fill {
+  height: 100%;
+  background: var(--secondary);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.vcc-assessment-progress-fill-done {
+  background: var(--success);
+}
+
+.vcc-assessment-progress-marker {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 12px;
+  background: var(--error);
+  transform: translateX(-1px);
+}
+
+.vcc-assessment-progress-marker-label {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: var(--error);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.vcc-assessment-locked-msg {
+  color: var(--error);
+  margin-top: 6px;
+  display: block;
+}
+
+.vcc-assessment-unlocked-msg {
+  color: var(--success);
+  margin-top: 6px;
+  display: block;
+  font-weight: 600;
+}
+
+.vcc-assessment-empty {
+  border-top-color: var(--outline-variant);
+  opacity: 0.6;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .vcc-nav-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px var(--gutter, 16px);
+  }
+
+  .vcc-nav-center {
+    order: -1;
+  }
+
+  .vcc-complete-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+  }
+
+  .vcc-nav-left,
+  .vcc-nav-right {
+    flex: unset;
+  }
+
+  .vcc-nav-left .vcc-nav-btn,
+  .vcc-nav-right .vcc-nav-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  /* Put Prev + Next side by side on the same row */
+  .vcc-nav-left,
+  .vcc-nav-right {
+    display: contents;
+  }
+
+  .vcc-nav-bar > .vcc-nav-left,
+  .vcc-nav-bar > .vcc-nav-right {
+    display: flex;
+  }
+
+  /* Row container trick: wrap prev+next in one flex row */
+  .vcc-nav-bar {
+    display: grid;
+    grid-template-areas:
+      "complete complete"
+      "prev     next";
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .vcc-nav-center {
+    grid-area: complete;
+  }
+  .vcc-nav-left {
+    grid-area: prev;
+  }
+  .vcc-nav-right {
+    grid-area: next;
+  }
+
+  .vcc-nav-left .vcc-nav-btn,
+  .vcc-nav-right .vcc-nav-btn {
+    width: 100%;
+  }
+}
+
+/* neutralise the negative-margin bleed on mobile — it causes horizontal scroll */
+.vcc-canvas-wrapper {
+  margin-left: 0;
+  margin-right: 0;
+}

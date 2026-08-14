@@ -1,0 +1,162 @@
+@startuml LearningAssessmentPortal_ProcessFlow
+
+!theme plain
+
+title Learning & Assessment Portal (LAP) - Frontend Process Flow
+
+start
+
+:Landing Page;
+
+if (Existing User?) then (Yes)
+    :Login;
+else (No)
+    stop
+endif
+
+:Authenticate User;
+
+if (Authentication Successful?) then (Yes)
+
+    if (Role?) then (Admin)
+
+        partition "Admin Flow" {
+
+            :Admin Dashboard;
+
+            while (Continue Managing?) is (Yes)
+
+                if (Select Module) then (Courses)
+
+                    :View Courses;
+                    :Create / Edit / Deactivate Course;
+                    :Manage Course Content;
+
+                elseif (Question Bank)
+
+                    :Download Template;
+                    :Upload Excel;
+                    :Validate File;
+                    :Import Questions;
+                    :Manage Questions;
+
+                elseif (Users)
+
+                    :View Users;
+                    :Create User;
+                    :Edit User;
+                    :Reset Password;
+                    :Deactivate User;
+
+                elseif (Enrollments)
+
+                    :View Enrollments;
+                    :Enroll Student;
+                    :Revoke Enrollment;
+
+                elseif (Forums)
+
+                    :Moderate Threads;
+                    :Delete Posts;
+                    :Pin Important Discussions;
+
+                else (Analytics)
+
+                    :View Leaderboard;
+                    :View Assessment Statistics;
+                    :View Tier Distribution;
+
+                endif
+
+            endwhile (No)
+
+            :Logout;
+
+        }
+
+    else (Student)
+
+        partition "Student Flow" {
+
+            :Student Dashboard;
+
+            while (Continue Learning?) is (Yes)
+
+                if (Select Module) then (Course Catalog)
+
+                    :Browse Courses;
+                    :Search / Filter Courses;
+                    :View Course Details;
+
+                    if (Enrolled?) then (No)
+                        :Enroll Course;
+                    endif
+
+                    :Access Course Content;
+                    :Read Materials;
+                    :Watch Videos;
+                    :Open Learning Resources;
+                    :Mark Sections Complete;
+
+                    if (Course Completed?) then (Yes)
+
+                        :Unlock Assessment;
+                        :Start Quiz;
+                        :Answer Questions;
+                        :Submit Quiz;
+
+                        :Adaptive Evaluation Engine;
+
+                        if (Weak Topics Found?) then (Yes)
+
+                            :Generate Recommendations;
+                            :Recommend Study Materials;
+                            :Generate Adaptive Quiz;
+                            :Take Adaptive Quiz;
+
+                        endif
+
+                        :Calculate Score;
+                        :Assign Tier;
+                        :Update Leaderboard;
+
+                    endif
+
+                elseif (Leaderboard)
+
+                    :View Ranking;
+                    :View Tier Badge;
+
+                elseif (Forums)
+
+                    :View Discussions;
+                    :Create Thread;
+                    :Reply to Thread;
+
+                else (Profile)
+
+                    :View Profile;
+                    :Edit Profile;
+                    :Change Password;
+
+                endif
+
+            endwhile (No)
+
+            :Logout;
+
+        }
+
+    endif
+
+else (No)
+
+    :Display Login Error;
+
+endif
+
+:Return to Landing Page;
+
+stop
+
+@enduml

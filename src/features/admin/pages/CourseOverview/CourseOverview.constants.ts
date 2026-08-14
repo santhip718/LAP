@@ -1,0 +1,83 @@
+export const courseOverviewStrings = {
+  loading: "Loading course overview...",
+  error: {
+    loadFailed: "Failed to load course overview. Please try again.",
+    notFound: "Course not found.",
+    courseIdMissing: "Course ID is missing.",
+  },
+  retry: "Retry",
+  backToList: "Back to Courses",
+  tabs: {
+    overview: "Overview",
+    discussion: "Discussion",
+    reviews: "Reviews",
+    leaderboard: "Leaderboard",
+  },
+  discussion: {
+    subtitle: "Course messages and announcements",
+  },
+  sections: {
+    details: "Course Description",
+    content: "Course Content",
+    assessment: "Assessment",
+    meta: "Metadata",
+  },
+  labels: {
+    category: "Category",
+    subCategory: "Subcategory",
+    difficulty: "Difficulty",
+    duration: "Duration",
+    rating: "Rating",
+    status: "Status",
+    instructor: "Instructor",
+    enrollments: "Enrollments",
+    createdDate: "Created",
+    description: "Description",
+    topics: "Topics",
+    contents: "Contents",
+    assessmentTitle: "Assessment",
+    totalMark: "Total Mark",
+    passingMark: "Passing Mark",
+    noDescription: "No description provided.",
+    noTopics: "No topics added yet.",
+    published: "Published",
+    draft: "Draft",
+    untitledTopic: "Untitled Topic",
+    untitledContent: "Untitled Content",
+  },
+  meta: {
+    coursePrefix: "Course",
+    topicCount: "{count} topic(s)",
+    contentCount: "{count} content(s)",
+  },
+  icons: {
+    arrowBack: "arrow_back",
+    schedule: "schedule",
+    group: "group",
+    star: "star",
+    school: "school",
+    calendarMonth: "calendar_month",
+    edit: "edit",
+    assessment: "assignment",
+    folder: "folder",
+    info: "info",
+  },
+} as const;
+
+export const courseDiscussionStrings = {
+  loading: "Loading discussion...",
+  error: {
+    loadFailed: "Failed to load messages.",
+    sendFailed: "Failed to send message. Please try again.",
+  },
+  retry: "Retry",
+  empty: {
+    title: "No messages yet",
+    subtitle: "Start the discussion by sending the first message.",
+  },
+  input: {
+    placeholder: "Type your message...",
+    hint: "Press Enter to send, Shift+Enter for new line",
+    sendAriaLabel: "Send message",
+  },
+} as const;

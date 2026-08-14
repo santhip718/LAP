@@ -1,0 +1,85 @@
+.vu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vu-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.vu-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.vu-avatar-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--on-primary);
+  font-family: var(--font-label-sm);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.vu-name {
+  font-family: var(--font-headline-lg);
+  line-height: 24px;
+  color: var(--on-surface);
+  margin-bottom: 2px;
+}
+
+.vu-email {
+  color: var(--on-surface-variant);
+}
+
+.vu-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vu-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vu-label {
+  font-family: var(--font-label-sm);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vu-value {
+  color: var(--on-surface);
+}
+
+.vu-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vu-role-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: var(--surface-container);
+  font-family: var(--font-label-sm);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+}

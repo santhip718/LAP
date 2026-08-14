@@ -1,0 +1,457 @@
+.cm-page {
+  background: var(--surface);
+}
+
+.cm-main {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 2rem var(--gutter) 5rem;
+}
+
+.cm-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .cm-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.cm-title {
+  line-height: 2.75rem;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.cm-subtitle {
+  line-height: 1.5rem;
+  color: var(--on-surface-variant);
+}
+
+.cm-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .cm-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cm-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.cm-table-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--outline-variant);
+  background: rgba(0, 0, 0, 0.01);
+}
+
+@media (min-width: 768px) {
+  .cm-table-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+  }
+}
+
+.cm-table-header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.cm-table-title {
+  font-family: var(--font-headline-lg);
+  line-height: 1.75rem;
+  color: var(--primary);
+  margin: 0;
+}
+
+.cm-active-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.4rem;
+  border-radius: 8px;
+  font-family: var(--font-label-sm);
+  font-size: 0.75rem;
+  line-height: 1;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cm-badge-success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.cm-badge-danger {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.cm-table-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cm-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--outline-variant);
+  border-radius: 8px;
+  background: var(--surface-container-lowest);
+  transition: border-color 0.2s;
+}
+
+.cm-search:focus-within {
+  border-color: var(--primary);
+}
+
+.cm-search .material-symbols-outlined {
+  font-size: 1.125rem;
+  color: var(--on-surface-variant);
+}
+
+.cm-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--on-surface);
+  min-width: 12rem;
+}
+
+.cm-filter-select {
+  height: 2rem;
+  border: 1px solid var(--outline-variant);
+  border-radius: 8px;
+  padding: 0 0.625rem;
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  font: inherit;
+  cursor: pointer;
+}
+
+.cm-state {
+  min-height: 13.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  border: 1px solid var(--outline-variant);
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+  background: var(--surface-container-lowest);
+  color: var(--on-surface-variant);
+  font-size: 0.875rem;
+}
+
+.cm-state .material-symbols-outlined {
+  font-size: 1.375rem;
+}
+
+.cm-error-state {
+  min-height: auto;
+  justify-content: flex-start;
+  padding: 0.875rem 1.125rem;
+  border: 1px solid rgba(186, 26, 26, 0.25);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  background: rgba(186, 26, 26, 0.08);
+  color: var(--error);
+}
+
+.cm-error-state button {
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  padding: 0.375rem 0.75rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.cm-warning-state {
+  min-height: auto;
+  justify-content: flex-start;
+  padding: 0.75rem 1.125rem;
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+.cm-icon-btn {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--outline-variant);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.cm-icon-btn:hover {
+  background: var(--surface-variant);
+  color: var(--primary);
+}
+
+.cm-icon-btn .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+.cm-divider {
+  width: 0.0625rem;
+  height: 1.5rem;
+  background: var(--outline-variant);
+  margin: 0 0.25rem;
+}
+
+.cm-course-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.cm-course-thumb {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--surface-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--on-surface-variant);
+}
+
+.cm-course-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cm-course-name {
+  font-family: var(--font-label-sm);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+  color: var(--primary);
+  transition: color 0.15s;
+}
+
+.cm-course-cell:hover .cm-course-name {
+  color: var(--secondary);
+}
+
+.cm-course-meta {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--on-surface-variant);
+  margin-top: 0.125rem;
+}
+
+.cm-badge {
+  display: inline-block;
+  background: var(--surface-container);
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-family: var(--font-label-sm);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.cm-difficulty {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.cm-difficulty-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cm-duration {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.cm-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--secondary);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.cm-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.75rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.625rem;
+  font-family: var(--font-label-sm);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+}
+
+.cm-status-published {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.cm-status-draft {
+  background: var(--surface-container);
+  color: var(--on-surface-variant);
+}
+
+.cm-star {
+  font-size: 1.125rem;
+  line-height: 1;
+  font-variation-settings: 'FILL' 1;
+}
+
+.cm-cell-center {
+  text-align: center !important;
+}
+
+.cm-cell-right {
+  text-align: right !important;
+}
+
+.cm-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cm-toggle-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.cm-toggle-track {
+  width: 2.5rem;
+  height: 1.25rem;
+  background: var(--outline-variant);
+  border-radius: 9999px;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.cm-toggle-input:checked + .cm-toggle-track {
+  background: var(--success);
+}
+
+.cm-toggle-dot {
+  position: absolute;
+  left: 0.125rem;
+  top: 0.125rem;
+  width: 1rem;
+  height: 1rem;
+  background: var(--surface-container-lowest);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+}
+
+.cm-toggle-input:checked + .cm-toggle-track .cm-toggle-dot {
+  transform: translateX(1.25rem);
+}
+
+.cm-delete-btn {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.cm-delete-btn:hover {
+  background: rgba(186, 26, 26, 0.08);
+  color: var(--danger);
+}
+
+.cm-delete-btn .material-symbols-outlined {
+  font-size: 1.125rem;
+}
+
+.cm-actions-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.cm-edit-btn {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.cm-edit-btn:hover {
+  background: rgba(70, 72, 212, 0.08);
+  color: var(--primary);
+}
+
+.cm-edit-btn .material-symbols-outlined {
+  font-size: 1.125rem;
+}

@@ -1,0 +1,139 @@
+.dynamic-section {
+  padding-bottom: var(--section-gap);
+}
+
+.dynamic-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--margin-mobile);
+  padding-right: var(--margin-mobile);
+}
+
+@media (min-width: 768px) {
+  .dynamic-inner {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+}
+
+.dynamic-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gutter);
+}
+
+@media (min-width: 768px) {
+  .dynamic-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.dynamic-main {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  min-height: 400px;
+  display: flex;
+  align-items: flex-end;
+  padding: 2.5rem;
+}
+
+.dynamic-main-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s;
+}
+
+.dynamic-main:hover .dynamic-main-image {
+  transform: scale(1.1);
+}
+
+.dynamic-main-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, color-mix(in srgb, var(--primary) 90%, transparent), transparent);
+}
+
+.dynamic-main-content {
+  position: relative;
+  z-index: 10;
+}
+
+.dynamic-main-label {
+  color: var(--dynamic-label, #e1e0ff) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.dynamic-main-title {
+  color: var(--on-primary) !important;
+  margin-bottom: 1rem !important;
+}
+
+.dynamic-main-text {
+  color: color-mix(in srgb, var(--on-primary) 80%, transparent);
+  max-width: 448px;
+}
+
+.dynamic-side {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--gutter);
+}
+
+.dynamic-card {
+  background: var(--dynamic-card-bg, rgba(255, 255, 255, 0.7));
+  backdrop-filter: blur(1.25rem);
+  -webkit-backdrop-filter: blur(1.25rem);
+  border: 0.0625rem solid var(--dynamic-card-border, rgba(13, 59, 64, 0.1));
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.dynamic-card-body {
+  flex: 1;
+}
+
+.dynamic-card-title {
+  color: var(--primary) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.dynamic-card-desc {
+  color: var(--on-surface-variant);
+}
+
+.dynamic-card-icon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dynamic-card-icon-secondary {
+  background: color-mix(in srgb, var(--secondary) 10%, transparent);
+}
+
+.dynamic-card-icon-teal {
+  background: color-mix(in srgb, var(--primary-container) 10%, transparent);
+}
+
+.dynamic-card-icon-color-secondary {
+  color: var(--secondary);
+}
+
+.dynamic-card-icon-color-teal {
+  color: var(--primary-container);
+}
+
+.dynamic-card-icon-size {
+  font-size: 1.875rem;
+}

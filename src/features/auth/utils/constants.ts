@@ -1,0 +1,75 @@
+export const loginStrings = {
+  pageTitle: "Welcome back",
+  pageSubtitle: "Access your AI-powered learning workspace",
+  signUpPrompt: "New to EduFlow?",
+  signUpLink: "Create an account",
+  form: {
+    emailLabel: "Email Address",
+    emailPlaceholder: "name@institution.edu",
+    passwordLabel: "Password",
+    passwordPlaceholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+    signInText: "Sign In",
+    signingInText: "Signing In...",
+    arrowForwardIcon: "arrow_forward",
+    visibilityOff: "visibility_off",
+    visibility: "visibility",
+  },
+  validation: {
+    emailRequired: "Email is required",
+    emailInvalid: "Invalid email",
+    passwordRequired: "Password is required",
+    passwordMinLength: "At least 6 characters",
+  },
+  error: {
+    invalidCredentials: "Invalid email or password. Please try again.",
+  },
+} as const;
+
+export const registerFormStrings = {
+  labels: {
+    fullName: "Full Name",
+    email: "Email Address",
+    password: "Password",
+    passwordEdit: "Password (leave blank to keep)",
+    mobileNumber: "Mobile Number",
+    designation: "Designation",
+    gender: "Gender",
+  },
+  placeholders: {
+    fullName: "Dr. Jane Smith",
+    email: "name@institution.edu",
+    password: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+    passwordEdit: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022 (optional)",
+    mobileNumber: "+1 555-0123",
+    selectDesignation: "Select designation",
+    selectGender: "Select gender",
+  },
+  validation: {
+    fullNameRequired: "Full name is required",
+    emailRequired: "Email is required",
+    emailInvalid: "Invalid email address",
+    passwordRequired: "Password is required",
+    passwordMinLength: "At least 6 characters",
+    mobileRequired: "Mobile number is required",
+    mobileInvalid: "Invalid number",
+    designationRequired: "Select a designation",
+    genderRequired: "Select your gender",
+  },
+  buttons: {
+    cancel: "Cancel",
+    saving: "Saving...",
+    creating: "Creating Account...",
+    saveChanges: "Save Changes",
+    createAccount: "Create Account",
+    checkIcon: "check",
+    arrowForwardIcon: "arrow_forward",
+  },
+  error: {
+    updateFailed: "Failed to update user. Please try again.",
+    registrationFailed: "Registration failed. Please try again.",
+  },
+  success: {
+    created: "User created successfully!",
+    updated: "User updated successfully!",
+  },
+} as const;

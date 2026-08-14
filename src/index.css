@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
+
+:root {
+  --primary: #1c2152;
+  --on-primary: #ffffff;
+  --primary-container: #303560;
+  --secondary: #4648d4;
+  --surface: #f9f9ff;
+  --surface-container-lowest: #ffffff;
+  --on-surface: #2b446b;
+  --on-surface-variant: #414849;
+  --outline-variant: #c0c8c9;
+  --outline: #717879;
+  --error: #ba1a1a;
+  --success: #2e7d32;
+  --on-success: #ffffff;
+  --success-container: #a5d6a7;
+  --warning: #ed6c02;
+  --on-warning: #ffffff;
+  --warning-container: #ffe0b2;
+  --info: #0288d1;
+  --on-info: #ffffff;
+  --info-container: #81d4fa;
+  --surface-container-high: #ececf0;
+  --danger: #d32f2f;
+  --danger-hover: #b71c1c;
+  --badge: #e7eeff;
+  --card: rgba(255, 255, 255, 0.794);
+  --surface-container: #eff1f4;
+  --surface-container-low: #f3f5f7;
+  --error-container: #ffdad6;
+
+  --card-border-icon: rgba(255, 255, 255, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --outline-subtle: rgba(0, 0, 0, 0.06);
+  --loader-overlay: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(192, 200, 201, 0.2);
+  --overlay-modal: rgba(28, 33, 82, 0.4);
+  --overlay-progress: rgba(255, 255, 255, 0.2);
+  --canvas-overlay: rgba(0, 0, 0, 0.45);
+  --canvas-bg: #000;
+  --canvas-text: #ffffff;
+  --canvas-border: rgba(255, 255, 255, 0.3);
+  --quiz-bg: #1a1a2e;
+  --quiz-timer-color: #00ff88;
+  --quiz-option-bg: rgba(70, 72, 212, 0.05);
+  --quiz-text-glow: 0 0 8px rgba(0, 255, 136, 0.5);
+  --error-border: #f3b3ad;
+  --focus-ring-primary: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  --focus-ring-error: 0 0 0 3px rgba(211, 47, 47, 0.12);
+  --assessment-shadow: 0 24px 64px rgba(23, 207, 84, 0.08);
+  --assessment-shadow-strong: 0 8px 24px rgba(23, 207, 84, 0.25);
+
+  --star-color: #f59e0b;
+  --sidebar-icon-color: #374151;
+  --review-own-bg: rgba(70, 72, 212, 0.03);
+  --review-avatar-end: #6c63ff;
+  --review-shadow: 0 2px 6px rgba(70, 72, 212, 0.25);
+  --review-danger-bg: rgba(186, 26, 26, 0.08);
+  --accordion-row-hover: rgba(46, 16, 101, 0.04);
+  --ghost-hover-bg: rgba(0, 36, 40, 0.05);
+  --input-label-color: rgba(0, 36, 40, 0.6);
+  --input-placeholder: rgba(65, 72, 73, 0.4);
+  --outline-light: rgba(192, 200, 201, 0.3);
+  --outline-lighter: rgba(192, 200, 201, 0.1);
+  --btn-home-shadow: 0 0.5rem 1.25rem -0.25rem rgba(0, 36, 40, 0.3);
+
+  --spinner-book-bg: hsl(268, 90%, 65%);
+  --spinner-book-border: hsl(278, 100%, 57%);
+  --spinner-shadow-color: rgba(0, 0, 0, 0.3);
+  --spinner-page-white: hsl(223, 10%, 100%);
+  --spinner-page-edge: hsl(223, 10%, 90%);
+  --spinner-line-color: hsl(223, 10%, 10%);
+  --spinner-page-back: hsl(223, 10%, 45%);
+  --spinner-cover-start: hsl(278, 84%, 67%);
+  --spinner-cover-end: hsl(271, 90%, 45%);
+  --spinner-v2-color: #ff3d00;
+
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-elevated:
+    0 0.625rem 0.9375rem -0.1875rem rgba(0, 0, 0, 0.1),
+    0 0.25rem 0.375rem -0.25rem rgba(0, 0, 0, 0.1);
+  --shadow-focus: 0 0 0 2px rgba(48, 53, 96, 0.15);
+
+  --font-label-sm: "Geist", sans-serif;
+  --font-headline-lg: "Hanken Grotesk", sans-serif;
+  --font-display-lg: "Hanken Grotesk", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+
+  --container-max: 1480px;
+  --margin-mobile: 1.25rem;
+  --gutter: 1.5rem;
+  --section-gap: 7.5rem;
+  --base: 0.5rem;
+
+  --surface-container: #f0f0f8;
+  --surface-container-high: #e8e8f2;
+  --surface-container-low: #f5f5fc;
+  --surface-variant: #e0e0ea;
+  --secondary-container: #4648d4;
+  --on-secondary-container: #ffffff;
+  --transparent: rgba(255, 255, 255, 0);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body-md);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--on-surface);
+  background: var(--surface);
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: none;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+  vertical-align: middle;
+}

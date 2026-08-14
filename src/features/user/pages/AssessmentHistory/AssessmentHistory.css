@@ -1,0 +1,89 @@
+.assessment-history {
+  background: var(--surface-container-lowest);
+  min-height: 100vh;
+}
+
+.assessment-history-main {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 48px var(--gutter) 100px;
+}
+
+.assessment-history-header {
+  margin-bottom: 56px;
+}
+
+.assessment-history-loading-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.assessment-history-loading {
+  text-align: center;
+  padding: 120px 24px;
+  color: var(--on-surface-variant);
+}
+
+.assessment-history-browse {
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: 14px 32px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.assessment-history-browse:hover {
+  background: var(--primary-container);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.assessment-history-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.assessment-history-more,
+.assessment-history-end {
+  text-align: center;
+  padding: 40px 24px 0;
+  color: var(--on-surface-variant);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.assessment-history-sentinel {
+  height: 40px;
+}
+
+@media (max-width: 1024px) {
+  .assessment-history-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .assessment-history-main {
+    padding: 32px var(--gutter) 80px;
+  }
+
+  .assessment-history-header {
+    margin-bottom: 40px;
+  }
+
+  .assessment-history-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .assessment-history-main {
+    padding: 24px var(--gutter) 60px;
+  }
+}

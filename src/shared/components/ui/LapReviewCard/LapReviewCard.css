@@ -1,0 +1,150 @@
+.lap-review-card {
+  background: var(--surface);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  padding: 20px;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.lap-review-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--outline);
+}
+
+.lap-review-card--own {
+  border-color: var(--secondary);
+  border-left: 4px solid var(--secondary);
+  background: linear-gradient(
+    135deg,
+    var(--surface-container-lowest) 0%,
+    var(--review-own-bg) 100%
+  );
+}
+
+.lap-review-card--own:hover {
+  border-color: var(--secondary);
+}
+
+.lap-review-card__top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.lap-review-card__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--secondary),
+    var(--review-avatar-end)
+  );
+  color: var(--on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--review-shadow);
+}
+
+.lap-review-card__avatar .MuiTypography-root {
+  font-weight: 700;
+}
+
+.lap-review-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.lap-review-card__info-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lap-review-card__user-name {
+  color: var(--on-surface);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lap-review-card__badge {
+  text-transform: uppercase;
+  background: var(--secondary);
+  color: var(--on-primary);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.03em;
+}
+
+.lap-review-card__date {
+  color: var(--on-surface-variant);
+}
+
+.lap-review-card__stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.lap-review-card__star {
+  font-size: 14px;
+  color: var(--outline);
+  transition: color 0.15s;
+}
+
+.lap-review-card__star--filled {
+  color: var(--star-color);
+}
+
+.lap-review-card__text {
+  color: var(--on-surface);
+  margin: 12px 0 0;
+  white-space: pre-line;
+}
+
+.lap-review-card__actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.lap-review-card__action-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.lap-review-card__action-btn:hover {
+  background: var(--surface-container);
+  color: var(--primary);
+}
+
+.lap-review-card__action-btn--danger:hover {
+  background: var(--review-danger-bg);
+  color: var(--error);
+}
+
+.lap-review-card__action-btn .material-symbols-outlined {
+  font-size: 18px;
+}
