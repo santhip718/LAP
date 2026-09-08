@@ -71,22 +71,11 @@ builder.Services.AddCors(options =>
         "FrontendPolicy",
         policy =>
         {
-            if (allowedOrigins.Contains("*") || allowedOrigins.Length == 0)
-            {
-                policy
-                    .SetIsOriginAllowed(_ => true)
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-            }
-            else
-            {
-                policy
-                    .WithOrigins(allowedOrigins)
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-            }
+            policy
+                .SetIsOriginAllowed(_ => true)
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
         }
     );
 });
@@ -117,9 +106,11 @@ if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("EnableS
     app.UseSwaggerUI();
 }
 
-app.UseStaticFiles();
+app.UseRouting();
 
 app.UseCors("FrontendPolicy");
+
+app.UseStaticFiles();
 
 // Register Exception Middleware
 app.UseMiddleware<ExceptionMiddleware>();
