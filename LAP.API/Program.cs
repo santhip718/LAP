@@ -37,8 +37,15 @@ builder
         options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
     });
 
+string rawConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+string connectionString = rawConnectionString.Trim('"', '\'', ' ', '\r', '\n');
+connectionString = connectionString
+    .Replace("Channel Binding=Require;", "", StringComparison.OrdinalIgnoreCase)
+    .Replace("Channel Binding=Require", "", StringComparison.OrdinalIgnoreCase)
+    .Trim(' ', ';');
+
 builder.Services.AddDbContext<LearningAssessmentDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseNpgsql(connectionString)
 );
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
@@ -99,6 +106,7 @@ if (app.Configuration.GetValue<bool>("ApplyMigrationsOnStartup", true))
         catch (Exception ex)
         {
             Log.Error(ex, "An error occurred while applying database migrations.");
+            throw;
         }
     }
 }
