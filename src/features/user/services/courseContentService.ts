@@ -29,7 +29,7 @@ function mapContent(dto: CourseContentProgressDto): LapContent {
     },
     videoUrl: dto.video_url ?? undefined,
     pdfFilePath: dto.pdf_file_path ?? undefined,
-    durationMinute: dto.meta_duration_minute ?? 0,
+    durationMinute: 0,
     sequenceOrder: dto.sequence_order ?? 0,
     isCompleted: dto.is_completed ?? false,
   };
@@ -42,9 +42,9 @@ function mapTopic(dto: CourseTopicProgressDto): LapTopic {
   return {
     id: dto.id!,
     name: dto.name!,
-    sequenceOrder: dto.sequence_order ?? 0,
-    metaSequenceOrder: dto.meta_sequence_order ?? dto.sequence_order ?? 0,
-    durationMinute: dto.duration_minute ?? 0,
+    sequenceOrder: dto.meta_sequence_order ?? 0,
+    metaSequenceOrder: dto.meta_sequence_order ?? 0,
+    durationMinute: dto.meta_duration_minute ?? 0,
     contents: contents,
     isCompleted: contents.length > 0 && contents.every((c) => c.isCompleted),
   };
