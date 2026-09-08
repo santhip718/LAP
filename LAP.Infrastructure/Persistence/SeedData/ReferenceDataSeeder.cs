@@ -146,9 +146,19 @@ public class ReferenceDataSeeder
                 continue;
             }
 
+            Guid termId = Guid.NewGuid();
+            if (record.RefSetName == "Role")
+            {
+                if (record.Name == LAP.Application.Constant.RoleConstants.ADMIN_ROLE_NAME)
+                    termId = LAP.Application.Constant.RoleConstants.ADMIN_ID;
+                else if (record.Name == "Student")
+                    termId = LAP.Application.Constant.RoleConstants.STUDENT_ID;
+            }
+
             await _context.RefTerm.AddAsync(
                 new RefTerm
                 {
+                    Id = termId,
                     RefSetId = refSet.Id,
                     Name = record.Name,
                     Description = record.Description,

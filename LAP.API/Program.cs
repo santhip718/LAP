@@ -134,6 +134,12 @@ if (app.Configuration.GetValue<bool>("Seeding"))
             scope.ServiceProvider.GetRequiredService<ICustomLogger<AuthorizationDataSeeder>>()
         );
         await authorizationSeeder.SeedAsync();
+
+        UserDataSeeder userSeeder = new UserDataSeeder(
+            dbContext,
+            scope.ServiceProvider.GetRequiredService<ICustomLogger<UserDataSeeder>>()
+        );
+        await userSeeder.SeedAsync();
     }
 }
 
