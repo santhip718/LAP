@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  BASE_URL: "http://localhost:5020",
+  BASE_URL: "https://lap-um1j.onrender.com",
   CONTENT_TYPE: "application/json",
 } as const;
 
