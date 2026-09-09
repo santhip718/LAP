@@ -206,12 +206,17 @@ public partial class Program
         // Strip unsupported libpq options like Channel Binding
         s = Regex.Replace(s, @"(?i)Channel\s+Binding\s*=\s*[^;]+;?", "");
 
+        bool isLocal = s.Contains("Host=localhost", StringComparison.OrdinalIgnoreCase) ||
+                       s.Contains("Host=127.0.0.1", StringComparison.OrdinalIgnoreCase) ||
+                       s.Contains("Server=localhost", StringComparison.OrdinalIgnoreCase) ||
+                       s.Contains("Server=127.0.0.1", StringComparison.OrdinalIgnoreCase);
+
         // Ensure SSL Mode and Trust Server Certificate for cloud connections
         if (!s.Contains("SSL Mode", StringComparison.OrdinalIgnoreCase) && !s.Contains("SslMode", StringComparison.OrdinalIgnoreCase))
         {
-            s = s.TrimEnd(';') + ";SSL Mode=Require;Trust Server Certificate=true;";
+            s = s.TrimEnd(';') + (isLocal ? ";SSL Mode=Prefer;" : ";SSL Mode=Require;Trust Server Certificate=true;");
         }
-        else if (!s.Contains("Trust Server Certificate", StringComparison.OrdinalIgnoreCase))
+        else if (!isLocal && !s.Contains("Trust Server Certificate", StringComparison.OrdinalIgnoreCase))
         {
             s = s.TrimEnd(';') + ";Trust Server Certificate=true;";
         }

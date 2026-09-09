@@ -15,6 +15,9 @@ DifficultyLevel,Easy,Easy
 DifficultyLevel,Medium,Medium
 DifficultyLevel,Hard,Hard
 
+ContentType,Video,Video
+ContentType,PDF,PDF Document
+
 ImportStatus,Pending,Pending
 ImportStatus,InProgress,In Progress
 ImportStatus,Completed,Completed
