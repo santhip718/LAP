@@ -133,4 +133,15 @@ describe("CreateCourseModal", () => {
     renderComponent();
     expect(screen.getByText("Add Content Meta Topic")).toBeInTheDocument();
   });
+
+  it("renders content type dropdown options and shows video input when Video is selected", () => {
+    renderComponent();
+    const select = screen.getByLabelText(/Content Type/i);
+    expect(select).toBeInTheDocument();
+    expect(screen.getByRole("option", { name: "Video" })).toBeInTheDocument();
+
+    fireEvent.change(select, { target: { value: "ct-1" } });
+    expect(screen.getByLabelText(/Video URL/i)).toBeInTheDocument();
+  });
 });
+
